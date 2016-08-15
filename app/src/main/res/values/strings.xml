@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BetterPerson</string>
+    <string name="quest_title">Quest</string>
 </resources>

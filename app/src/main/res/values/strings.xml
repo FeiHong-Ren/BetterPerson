@@ -3,4 +3,6 @@
     <string name="quest_title">Quest</string>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="add_title_text">Title:</string>
+
 </resources>

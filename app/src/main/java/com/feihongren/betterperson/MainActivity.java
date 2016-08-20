@@ -1,5 +1,6 @@
 package com.feihongren.betterperson;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //set up the action tool bar
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.task_toolbar);
         setSupportActionBar(myToolbar);
         //set up the button click event for drawer
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.task_activity_bar, menu);
         return true;
     }
     @Override
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.add_button) {
+            //When click button, start new activity
+            Intent startAddActivity = new Intent(this, AddActiviy.class);
+            startActivity(startAddActivity);
             return true;
         }
 

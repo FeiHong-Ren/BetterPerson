@@ -6,7 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+
 
 
 public class AddActiviy extends AppCompatActivity {
@@ -26,6 +28,8 @@ public class AddActiviy extends AppCompatActivity {
         //set the limit for add activity minute range
         EditText minuteLimit = (EditText) findViewById(R.id.add_time_minute);
         minuteLimit.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 59)});
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

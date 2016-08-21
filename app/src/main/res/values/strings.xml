@@ -4,5 +4,14 @@
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
     <string name="add_title_text">Title:</string>
+    <string-array name="day_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 
 </resources>

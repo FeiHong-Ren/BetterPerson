@@ -70,7 +70,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_day"
             android:layout_alignLeft="@+id/add_day"
-            android:layout_alignStart="@+id/add_day" />
+            android:layout_alignStart="@+id/add_day"
+            android:checked="true" />
 
         <ToggleButton
             android:layout_width="60dp"
@@ -81,7 +82,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_day"
             android:layout_toRightOf="@+id/add_monday_button"
-            android:layout_toEndOf="@+id/add_monday_button" />
+            android:layout_toEndOf="@+id/add_monday_button"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -91,7 +93,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_day"
             android:layout_toRightOf="@+id/add_tuesday_button"
-            android:layout_toEndOf="@+id/add_tuesday_button" />
+            android:layout_toEndOf="@+id/add_tuesday_button"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -101,7 +104,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_day"
             android:layout_toRightOf="@+id/add_wednesday_button"
-            android:layout_toEndOf="@+id/add_wednesday_button" />
+            android:layout_toEndOf="@+id/add_wednesday_button"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -111,7 +115,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_monday_button"
             android:layout_toLeftOf="@+id/add_time_minute"
-            android:layout_toStartOf="@+id/add_time_minute" />
+            android:layout_toStartOf="@+id/add_time_minute"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -121,7 +126,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_tuesday_button"
             android:layout_toRightOf="@+id/add_friday_button"
-            android:layout_toEndOf="@+id/add_friday_button" />
+            android:layout_toEndOf="@+id/add_friday_button"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="60dp"
             android:layout_height="50dp"
@@ -131,7 +137,8 @@
             android:textOff="Off"
             android:layout_below="@+id/add_wednesday_button"
             android:layout_toRightOf="@+id/add_saturday_button"
-            android:layout_toEndOf="@+id/add_saturday_button" />
+            android:layout_toEndOf="@+id/add_saturday_button"
+            android:checked="true"/>
 
         <EditText
             android:inputType="textMultiLine"
@@ -146,6 +153,18 @@
             android:layout_alignLeft="@+id/add_monday_button"
             android:layout_alignStart="@+id/add_monday_button"
             android:background="@drawable/input_box_border"
-            android:hint="Description" />
+            android:hint="Description"
+            android:id="@+id/add_description" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Complete"
+            android:id="@+id/add_complete_button"
+            android:layout_below="@id/add_description"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+
     </RelativeLayout>
 </ScrollView>

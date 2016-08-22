@@ -6,12 +6,27 @@ import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 
 
 
 public class AddActiviy extends AppCompatActivity {
+    private String title = "";
+    private int hour = 0;
+    private int minute = 0;
+    private int point = 0;
+    private boolean mondayOn = true;
+    private boolean tuesdayOn = true;
+    private boolean wednesdayOn = true;
+    private boolean thursdayOn = true;
+    private boolean fridayOn = true;
+    private boolean saturdayOn = true;
+    private boolean sundayOn = true;
+    private String description = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +44,24 @@ public class AddActiviy extends AppCompatActivity {
         EditText minuteLimit = (EditText) findViewById(R.id.add_time_minute);
         minuteLimit.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 59)});
 
+        //set the button action listener for complete button
+        Button complete_button = (Button) findViewById(R.id.add_complete_button);
+        complete_button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                EditText titleEdit = (EditText) findViewById(R.id.add_title);
+                EditText hourEdit = (EditText) findViewById(R.id.add_time_hour);
+                EditText minuteEdit = (EditText) findViewById(R.id.add_time_minute);
+                EditText pointEdit = (EditText) findViewById(R.id.add_point);
+                EditText descriptionEdit = (EditText) findViewById(R.id.add_description);
+
+                String titleString = (String) titleEdit.getText().toString();
+                int hourInteger = Integer.parseInt(hourEdit.getText().toString());
+                int minInteger = Integer.parseInt(minuteEdit.getText().toString());
+                int pointInteger = Integer.parseInt(pointEdit.getText().toString());
+                String descriptionString = (String) descriptionEdit.getText().toString();
+
+            }
+        });
 
     }
     @Override
@@ -52,5 +85,7 @@ public class AddActiviy extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

@@ -1,4 +1,8 @@
 package com.feihongren.betterperson;
+/*
+Name: FeiHong Ren
+Date: August 2016
+*/
 
 import android.content.Intent;
 import android.os.Bundle;

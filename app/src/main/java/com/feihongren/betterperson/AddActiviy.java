@@ -1,5 +1,6 @@
 package com.feihongren.betterperson;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,23 +11,23 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.ToggleButton;
 
 
 public class AddActiviy extends AppCompatActivity {
     private String title = "";
-    private int hour = 0;
-    private int minute = 0;
+    private float hour = 0;
+    private float minute = 0;
     private int point = 0;
-    private boolean mondayOn = true;
-    private boolean tuesdayOn = true;
-    private boolean wednesdayOn = true;
-    private boolean thursdayOn = true;
-    private boolean fridayOn = true;
-    private boolean saturdayOn = true;
-    private boolean sundayOn = true;
+    private int mondayOn = 1;
+    private int tuesdayOn = 1;
+    private int wednesdayOn = 1;
+    private int thursdayOn = 1;
+    private int fridayOn = 1;
+    private int saturdayOn = 1;
+    private int sundayOn = 1;
     private String description = "";
-
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +53,66 @@ public class AddActiviy extends AppCompatActivity {
                 EditText hourEdit = (EditText) findViewById(R.id.add_time_hour);
                 EditText minuteEdit = (EditText) findViewById(R.id.add_time_minute);
                 EditText pointEdit = (EditText) findViewById(R.id.add_point);
+                ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.add_monday_button);
+                ToggleButton tuesdayToggle = (ToggleButton) findViewById(R.id.add_tuesday_button);
+                ToggleButton wednesdayToggle = (ToggleButton) findViewById(R.id.add_wednesday_button);
+                ToggleButton thursdayToggle = (ToggleButton) findViewById(R.id.add_thursday_button);
+                ToggleButton fridayToggle = (ToggleButton) findViewById(R.id.add_friday_button);
+                ToggleButton saturdayToggle = (ToggleButton) findViewById(R.id.add_saturday_button);
+                ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.add_sunday_button);
                 EditText descriptionEdit = (EditText) findViewById(R.id.add_description);
 
-                String titleString = (String) titleEdit.getText().toString();
-                int hourInteger = Integer.parseInt(hourEdit.getText().toString());
-                int minInteger = Integer.parseInt(minuteEdit.getText().toString());
-                int pointInteger = Integer.parseInt(pointEdit.getText().toString());
-                String descriptionString = (String) descriptionEdit.getText().toString();
+                DBHandler dbHandler = new DBHandler(context);
 
+                String title = (String) titleEdit.getText().toString();
+                float hour = Float.valueOf(hourEdit.getText().toString());
+                float minute = Float.valueOf(minuteEdit.getText().toString());
+                int point = Integer.parseInt(pointEdit.getText().toString());
+                if(mondayToggle.isChecked()){
+                    mondayOn = 1;
+                }
+                else{
+                    mondayOn = 0;
+                }
+                if(tuesdayToggle.isChecked()){
+                    tuesdayOn = 1;
+                }
+                else{
+                    tuesdayOn = 0;
+                }
+                if(wednesdayToggle.isChecked()){
+                    wednesdayOn = 1;
+                }
+                else{
+                    wednesdayOn = 0;
+                }
+                if(thursdayToggle.isChecked()){
+                    thursdayOn = 1;
+                }
+                else{
+                    thursdayOn = 0;
+                }
+                if(fridayToggle.isChecked()){
+                    fridayOn = 1;
+                }
+                else{
+                    fridayOn = 0;
+                }
+                if(saturdayToggle.isChecked()){
+                    saturdayOn = 1;
+                }
+                else{
+                    saturdayOn = 0;
+                }
+                if(sundayToggle.isChecked()){
+                    sundayOn = 1;
+                }
+                else{
+                    sundayOn = 0;
+                }
+                String description = (String) descriptionEdit.getText().toString();
+
+                dbHandler.addTask(title, hour, minute, point, mondayOn,tuesdayOn, wednesdayOn, thursdayOn, fridayOn, saturdayOn, sundayOn, description);
             }
         });
 

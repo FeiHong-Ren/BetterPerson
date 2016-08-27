@@ -1,5 +1,6 @@
 package com.feihongren.betterperson;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -44,6 +45,27 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TASK_TABLE_NAME);
         onCreate(db);
+    }
+
+    public void addTask(String title, float hour, float minute, int point, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int sunday, String description){
+        SQLiteDatabase SQLDB = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK_COLUMN_TITLE,title);
+        contentValues.put(TASK_COLUMN_HOUR,hour);
+        contentValues.put(TASK_COLUMN_MINUTE,minute);
+        contentValues.put(TASK_COLUMN_POINT,point);
+        contentValues.put(TASK_TABLE_MONDAY,monday);
+        contentValues.put(TASK_COLUMN_TUESDAY,tuesday);
+        contentValues.put(TASK_COLUMN_WEDNESDAY,wednesday);
+        contentValues.put(TASK_COLUMN_THURSDAY,thursday);
+        contentValues.put(TASK_COLUMN_FRIDAY,friday);
+        contentValues.put(TASK_COLUMN_SATURDAY,saturday);
+        contentValues.put(TASK_COLUMN_SUNDAY,sunday);
+        contentValues.put(TASK_COLUMN_DESCRIPTION,description);
+        SQLDB.insert(DATABASE_NAME, null, contentValues);
+        Log.d("Database operations", "One row inserted");
+        SQLDB.close();
+
     }
     
 

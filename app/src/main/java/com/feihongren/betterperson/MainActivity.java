@@ -17,11 +17,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
     //Adding variable for the button click event for drawer
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+
+    //listview  variable for task
+    ListView taskListView;
+    ArrayAdapter<String> arrayAdapter;
+    String[] taskName = {"task","test task"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,11 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,myToolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        //getSupportActionBar().setTitle(R.string.quest_title);
+
+        //set up the main task list
+        taskListView = (ListView) findViewById(R.id.main_task_list);
+        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,taskName);
+        taskListView.setAdapter(arrayAdapter);
     }
 
     //drawer syn post create

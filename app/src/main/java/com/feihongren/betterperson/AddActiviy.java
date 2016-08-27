@@ -28,6 +28,7 @@ public class AddActiviy extends AppCompatActivity {
     private int sundayOn = 1;
     private String description = "";
     private Context context = this;
+    private AddActiviy currentActivity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +114,7 @@ public class AddActiviy extends AppCompatActivity {
                 String description = (String) descriptionEdit.getText().toString();
 
                 dbHandler.addTask(title, hour, minute, point, mondayOn,tuesdayOn, wednesdayOn, thursdayOn, fridayOn, saturdayOn, sundayOn, description);
+                currentActivity.finish();
             }
         });
 
@@ -132,7 +134,7 @@ public class AddActiviy extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cancel_button) {
-            this.finish();
+            currentActivity.finish();
             return true;
         }
 

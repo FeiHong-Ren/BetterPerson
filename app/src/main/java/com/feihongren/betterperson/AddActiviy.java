@@ -13,6 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
 
+import java.util.ArrayList;
+
+import static com.feihongren.betterperson.MainActivity.updateList;
+
 
 public class AddActiviy extends AppCompatActivity {
     private String title = "";
@@ -27,8 +31,12 @@ public class AddActiviy extends AppCompatActivity {
     private int saturdayOn = 1;
     private int sundayOn = 1;
     private String description = "";
+    private Task newTask;
     private Context context = this;
     private AddActiviy currentActivity = this;
+
+    ArrayList<Task> array;
+    Adapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +120,11 @@ public class AddActiviy extends AppCompatActivity {
                     sundayOn = 0;
                 }
                 String description = (String) descriptionEdit.getText().toString();
+                newTask = new Task(title, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
 
-                dbHandler.addTask(title, hour, minute, point, mondayOn,tuesdayOn, wednesdayOn, thursdayOn, fridayOn, saturdayOn, sundayOn, description);
+                dbHandler.addTask(newTask.getTitle(), newTask.getHour(), newTask.getMinute(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription());
+
+                updateList(newTask);
                 currentActivity.finish();
             }
         });

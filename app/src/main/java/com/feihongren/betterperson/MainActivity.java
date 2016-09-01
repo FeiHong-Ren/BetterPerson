@@ -6,6 +6,7 @@ Date: August 2016
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -18,7 +19,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.LinearLayout.LayoutParams;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     //Adding variable for the button click event for drawer
@@ -27,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     //listview  variable for task
     ListView taskListView;
-    ArrayAdapter<String> arrayAdapter;
-    String[] taskName = {"task","test task"};
+    static ArrayList<Task> array;
+    static Adapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +51,16 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         //set up the main task list
+        array = new ArrayList<Task>();
+        arrayAdapter = new Adapter(this, R.layout.custom_listview, array);
+
         taskListView = (ListView) findViewById(R.id.main_task_list);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,taskName);
         taskListView.setAdapter(arrayAdapter);
+    }
+
+    public static void updateList(Task newTask){
+        array.add(0, newTask);
+        arrayAdapter.notifyDataSetChanged();
     }
 
     //drawer syn post create

@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:id="@+id/one_task"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="vertical"
         android:background="#F5F5F5">
 
         <TextView
             android:id="@+id/task_name"
-            android:layout_width="250dp"
+            android:layout_width="270dp"
             android:layout_height="50dp"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:paddingLeft="20dp"
+            android:gravity="center_vertical"
             />
 
+        <ImageButton
+            android:id="@+id/edit_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/edit_image"
+            android:background="#F5F5F5"
+            android:layout_toRightOf="@id/task_name"
+            />
+
+        <CheckBox
+            android:id="@+id/task_checkbox"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_toRightOf="@id/edit_button"
+            android:checked="false" />
     </RelativeLayout>
 
-
-    <ImageButton
-        android:id="@+id/edit_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignRight="@id/one_task"
-        android:src="@drawable/edit_image"/>
-
-    <CheckBox
-        android:id="@+id/task_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_alignRight="@id/edit_button"
-        />
 
 
 </LinearLayout>

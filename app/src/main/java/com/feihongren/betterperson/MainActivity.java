@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     //listview  variable for task
     ListView taskListView;
-    static ArrayList<Task> array;
+    static ArrayList<Task> taskArray;
     static Adapter arrayAdapter;
 
     @Override
@@ -51,15 +51,15 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         //set up the main task list
-        array = new ArrayList<Task>();
-        arrayAdapter = new Adapter(this, R.layout.custom_listview, array);
+        taskArray = new ArrayList<Task>();
+        arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
 
         taskListView = (ListView) findViewById(R.id.main_task_list);
         taskListView.setAdapter(arrayAdapter);
     }
 
     public static void updateList(Task newTask){
-        array.add(0, newTask);
+        taskArray.add(newTask);
         arrayAdapter.notifyDataSetChanged();
     }
 

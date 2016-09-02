@@ -2,6 +2,7 @@ package com.feihongren.betterperson;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -34,20 +37,35 @@ public class Adapter extends ArrayAdapter<Task> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView == null){
             LayoutInflater inflater = context.getLayoutInflater();
             convertView = inflater.inflate(id,null);
         }
+
+
+
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
-        CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
+        final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
+
         final Task task = taskList.get(position);
 
-        taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+        //variable use to change the task background when click checkbox
+        final View finalConvertView = convertView;
+        final ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_button);
+        final RelativeLayout taskRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.one_task);
 
+        taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                task.setIsChecked(b);
+                if(taskCheckBox.isChecked()) {
+                    taskRelativeLayout.setBackgroundColor(Color.GREEN);
+                    editButton.setBackgroundColor(Color.GREEN);
+                }
+                else{
+                    taskRelativeLayout.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                    editButton.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                }
             }
         });
 
@@ -56,9 +74,12 @@ public class Adapter extends ArrayAdapter<Task> {
             taskCheckBox.setChecked(true);
         }
         else {
-            taskCheckBox.setChecked(true);
+            taskCheckBox.setChecked(false);
         }
+
+
         return convertView;
     }
+
 
 }

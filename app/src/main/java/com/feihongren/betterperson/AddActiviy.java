@@ -125,6 +125,7 @@ public class AddActiviy extends AppCompatActivity {
                 dbHandler.addTask(newTask.getTitle(), newTask.getHour(), newTask.getMinute(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription());
 
                 updateList(newTask);
+
                 currentActivity.finish();
             }
         });

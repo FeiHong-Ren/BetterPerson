@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -52,6 +54,7 @@ public class Adapter extends ArrayAdapter<Task> {
 
         //variable use to change the task background when click checkbox
         final View finalConvertView = convertView;
+        final TextView taskStatus = (TextView) convertView.findViewById(R.id.task_status);
         final ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_button);
         final RelativeLayout taskRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.one_task);
 
@@ -59,12 +62,12 @@ public class Adapter extends ArrayAdapter<Task> {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(taskCheckBox.isChecked()) {
-                    taskRelativeLayout.setBackgroundColor(Color.GREEN);
-                    editButton.setBackgroundColor(Color.GREEN);
+                    taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
+                    //editButton.setBackgroundColor(Color.parseColor("#58D68D"));
                 }
                 else{
-                    taskRelativeLayout.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                    editButton.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                    taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                    //editButton.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
             }
         });

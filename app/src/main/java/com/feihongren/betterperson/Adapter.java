@@ -2,6 +2,7 @@ package com.feihongren.betterperson;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -45,30 +46,30 @@ public class Adapter extends ArrayAdapter<Task> {
             convertView = inflater.inflate(id,null);
         }
 
-
-
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
-
         final Task task = taskList.get(position);
 
         //variable use to change the task background when click checkbox
-        final View finalConvertView = convertView;
         final TextView taskStatus = (TextView) convertView.findViewById(R.id.task_status);
-        final ImageButton editButton = (ImageButton) convertView.findViewById(R.id.edit_button);
-        final RelativeLayout taskRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.one_task);
-
+        //Actionlistener when click checkbox
         taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(taskCheckBox.isChecked()) {
                     taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
-                    //editButton.setBackgroundColor(Color.parseColor("#58D68D"));
                 }
                 else{
                     taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                    //editButton.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
+            }
+        });
+
+        //actionlistener when click task
+        taskName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 

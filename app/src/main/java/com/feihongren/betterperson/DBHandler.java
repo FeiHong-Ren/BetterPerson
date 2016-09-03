@@ -182,6 +182,14 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLDB.update(COUNT_TABLE_NAME,contentValues, COUNT_COLUMN_id +"=0", null);
 
     }
+
+    public void updateIsCompleted(Task task,int isCompleted){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TASK_COLUMN_IS_COMPLETED, isCompleted);
+        SQLDB.update(TASK_TABLE_NAME,contentValues, TASK_COLUMN_ID + "="+ task.getID(),null );
+
+    }
     
 
 }

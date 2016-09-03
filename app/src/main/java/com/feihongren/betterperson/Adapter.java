@@ -50,6 +50,8 @@ public class Adapter extends ArrayAdapter<Task> {
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
         final Task task = taskList.get(position);
 
+        final DBHandler dbHandler = new DBHandler(context);
+
         //variable use to change the task background when click checkbox
         final TextView taskStatus = (TextView) convertView.findViewById(R.id.task_status);
         //Actionlistener when click checkbox
@@ -57,9 +59,11 @@ public class Adapter extends ArrayAdapter<Task> {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if(taskCheckBox.isChecked()) {
+                    dbHandler.updateIsCompleted(task,1);
                     taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
                 }
                 else{
+                    dbHandler.updateIsCompleted(task,0);
                     taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
             }

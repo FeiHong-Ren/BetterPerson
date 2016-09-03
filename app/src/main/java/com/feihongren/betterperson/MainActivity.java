@@ -51,11 +51,15 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         //set up the main task list
-        taskArray = new ArrayList<Task>();
+        DBHandler dbHandler = new DBHandler(this);
+        taskArray = dbHandler.getTaskList();//get the task in the database
         arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
 
         taskListView = (ListView) findViewById(R.id.main_task_list);
         taskListView.setAdapter(arrayAdapter);
+
+
+
     }
 
     public static void addTask(Task newTask){

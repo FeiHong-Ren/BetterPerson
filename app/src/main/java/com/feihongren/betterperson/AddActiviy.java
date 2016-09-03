@@ -122,20 +122,16 @@ public class AddActiviy extends AppCompatActivity {
                     sundayOn = 0;
                 }
                 String description = (String) descriptionEdit.getText().toString();
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //need to come back later for task id
-                int count = dbHandler.getCount();
 
-                newTask = new Task(count,title, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
-
-                dbHandler.addTask(count,newTask.getTitle(), newTask.getHour(), newTask.getMinute(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription(),newTask.getIsCompleted());
+                int count = dbHandler.getCount(); //get the count from database
+                //add new task
+                newTask = new Task(count,title, hour, minute, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
+                dbHandler.addTask(count,newTask.getTitle(), newTask.getHourTotal(), newTask.getMinuteTotal(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription(),newTask.getIsCompleted());
 
                 count++;
-                dbHandler.updateCount(count);
+                dbHandler.updateCount(count); //update the count in the database
 
-                addTask(newTask);
-
-
+                addTask(newTask); //add the new task in the main activity and notify the change in list array
 
 
                 currentActivity.finish();

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         taskListView.setAdapter(arrayAdapter);
     }
 
-    public static void updateList(Task newTask){
+    public static void addTask(Task newTask){
         taskArray.add(newTask);
         arrayAdapter.notifyDataSetChanged();
     }

@@ -15,7 +15,7 @@ import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
-import static com.feihongren.betterperson.MainActivity.updateList;
+import static com.feihongren.betterperson.MainActivity.addTask;
 
 
 public class AddActiviy extends AppCompatActivity {
@@ -34,6 +34,8 @@ public class AddActiviy extends AppCompatActivity {
     private Task newTask;
     private Context context = this;
     private AddActiviy currentActivity = this;
+
+
 
     ArrayList<Task> array;
     Adapter arrayAdapter;
@@ -120,11 +122,21 @@ public class AddActiviy extends AppCompatActivity {
                     sundayOn = 0;
                 }
                 String description = (String) descriptionEdit.getText().toString();
-                newTask = new Task(title, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //need to come back later for task id
+                int count = dbHandler.getCount();
 
-                dbHandler.addTask(newTask.getTitle(), newTask.getHour(), newTask.getMinute(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription());
+                newTask = new Task(count,title, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
 
-                updateList(newTask);
+                dbHandler.addTask(count,newTask.getTitle(), newTask.getHour(), newTask.getMinute(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription(),newTask.getIsCompleted());
+
+                count++;
+                dbHandler.updateCount(count);
+
+                addTask(newTask);
+
+
+
 
                 currentActivity.finish();
             }

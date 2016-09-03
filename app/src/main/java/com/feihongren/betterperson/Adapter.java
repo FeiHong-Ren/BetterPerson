@@ -45,7 +45,7 @@ public class Adapter extends ArrayAdapter<Task> {
             LayoutInflater inflater = context.getLayoutInflater();
             convertView = inflater.inflate(id,null);
         }
-
+        System.out.println("the position is " + position);
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
         final Task task = taskList.get(position);
@@ -74,7 +74,7 @@ public class Adapter extends ArrayAdapter<Task> {
         });
 
         taskName.setText(task.getTitle());
-        if(task.getIsChecked() == 1) {
+        if(task.getIsCompleted() == 1) {
             taskCheckBox.setChecked(true);
         }
         else {

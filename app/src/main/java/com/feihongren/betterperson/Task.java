@@ -4,6 +4,7 @@ package com.feihongren.betterperson;
  * Created by fwr50 on 2016/8/31.
  */
 public class Task {
+    private int id = -1;
     private String title = "";
     private float hour = 0;
     private float minute = 0;
@@ -16,9 +17,10 @@ public class Task {
     private int saturdayOn = 1;
     private int sundayOn = 1;
     private String description = "";
-    private int isChecked = 0;
+    private int isCompleted = 0;
 
-    public Task(String title, float hour, float minute, int point, int mondayOn, int thursdayOn, int tuesdayOn, int wednesdayOn, int fridayOn, int sundayOn, int saturdayOn, String description, int isChecked) {
+    public Task(int id, String title, float hour, float minute, int point, int mondayOn, int thursdayOn, int tuesdayOn, int wednesdayOn, int fridayOn, int sundayOn, int saturdayOn, String description, int isCompleted) {
+        this.id = id;
         this.title = title;
         this.hour = hour;
         this.minute = minute;
@@ -31,7 +33,15 @@ public class Task {
         this.sundayOn = sundayOn;
         this.saturdayOn = saturdayOn;
         this.description = description;
-        this.isChecked = isChecked;
+        this.isCompleted = isCompleted;
+    }
+
+    public int getID() {
+        return id;
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -130,16 +140,16 @@ public class Task {
         this.description = description;
     }
 
-    public int getIsChecked() {
-        return isChecked;
+    public int getIsCompleted() {
+        return isCompleted;
     }
 
-    public void setIsChecked(boolean isChecked) {
-        if(isChecked){
-            this.isChecked = 1;
+    public void setIsCompleted(boolean isCompleted) {
+        if(isCompleted){
+            this.isCompleted = 1;
         }
         else{
-            this.isChecked = 0;
+            this.isCompleted = 0;
         }
     }
 }

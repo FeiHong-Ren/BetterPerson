@@ -11,7 +11,7 @@ import android.util.Log;
  */
 public class DBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "better_person_db";
+    private static final String DATABASE_NAME = "better_person.db";
     private static final String TASK_TABLE_NAME = "task_info";
     private static final String TASK_COLUMN_TITLE = "title";
     private static final String TASK_COLUMN_HOUR = "hour";
@@ -33,10 +33,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        String CREATE_TASK_TABLE = "CREATE TABLE " + TASK_TABLE_NAME + "(" + TASK_COLUMN_TITLE + "TEXT,"+ TASK_COLUMN_HOUR + "REAL," +
-                TASK_COLUMN_MINUTE + "REAL,"+ TASK_COLUMN_POINT + "INTEGER," + TASK_TABLE_MONDAY + "INTEGER,"+ TASK_COLUMN_TUESDAY + "INTEGER," +
-                TASK_COLUMN_WEDNESDAY + "INTEGER,"+ TASK_COLUMN_THURSDAY + "INTEGER," + TASK_COLUMN_FRIDAY + "INTEGER,"+
-                TASK_COLUMN_SATURDAY + "INTEGER,"+ TASK_COLUMN_SUNDAY + "INTEGER," + TASK_COLUMN_DESCRIPTION + "TEXT" +")";
+        String CREATE_TASK_TABLE = "CREATE TABLE IF NOT EXISTS " + TASK_TABLE_NAME + "(" + TASK_COLUMN_TITLE + " TEXT,"+ TASK_COLUMN_HOUR + " REAL," +
+                TASK_COLUMN_MINUTE + " REAL,"+ TASK_COLUMN_POINT + " INTEGER," + TASK_TABLE_MONDAY + " INTEGER,"+ TASK_COLUMN_TUESDAY + " INTEGER," +
+                TASK_COLUMN_WEDNESDAY + " INTEGER,"+ TASK_COLUMN_THURSDAY + " INTEGER," + TASK_COLUMN_FRIDAY + " INTEGER,"+
+                TASK_COLUMN_SATURDAY + " INTEGER,"+ TASK_COLUMN_SUNDAY + " INTEGER," + TASK_COLUMN_DESCRIPTION + " TEXT" +");";
         db.execSQL(CREATE_TASK_TABLE);
         Log.d("Database operations", "Table created");
     }
@@ -48,7 +48,7 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     public void addTask(String title, float hour, float minute, int point, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int sunday, String description){
-        SQLiteDatabase SQLDB = this.getReadableDatabase();
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TASK_COLUMN_TITLE,title);
         contentValues.put(TASK_COLUMN_HOUR,hour);
@@ -62,7 +62,7 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(TASK_COLUMN_SATURDAY,saturday);
         contentValues.put(TASK_COLUMN_SUNDAY,sunday);
         contentValues.put(TASK_COLUMN_DESCRIPTION,description);
-        SQLDB.insert(DATABASE_NAME, null, contentValues);
+        SQLDB.insert(TASK_TABLE_NAME, null, contentValues);
         Log.d("Database operations", "One row inserted");
         SQLDB.close();
 

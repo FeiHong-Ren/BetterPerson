@@ -6,11 +6,11 @@ package com.feihongren.betterperson;
 public class Task {
     private int id = -1;
     private String title = "";
-    private float hourTotal = 0;
-    private float minuteTotal = 0;
-    private float hourRemain = 0;
-    private float minuteRemain = 0;
-    private float secondRemain = 0;
+    private int hourTotal = 0;
+    private int minuteTotal = 0;
+    private int hourRemain = 0;
+    private int minuteRemain = 0;
+    private int secondRemain = 0;
     private int point = 0;
     private int mondayOn = 1;
     private int tuesdayOn = 1;
@@ -22,7 +22,7 @@ public class Task {
     private String description = "";
     private int isCompleted = 0;
 
-    public Task(int id, String title, float hourTotal, float minuteTotal, float hourRemain, float minuteRemain, float secondRemain, int point, int mondayOn, int thursdayOn, int tuesdayOn, int wednesdayOn, int fridayOn, int sundayOn, int saturdayOn, String description, int isCompleted) {
+    public Task(int id, String title, int hourTotal, int minuteTotal, int hourRemain, int minuteRemain, int secondRemain, int point, int mondayOn, int thursdayOn, int tuesdayOn, int wednesdayOn, int fridayOn, int sundayOn, int saturdayOn, String description, int isCompleted) {
         this.id = id;
         this.title = title;
         this.hourTotal = hourTotal;
@@ -56,43 +56,43 @@ public class Task {
         this.title = title;
     }
 
-    public float getHourTotal() {
+    public int getHourTotal() {
         return hourTotal;
     }
 
-    public void setHourTotal(float hourTotal) {
+    public void setHourTotal(int hourTotal) {
         this.hourTotal = hourTotal;
     }
 
-    public float getMinuteTotal() {
+    public int getMinuteTotal() {
         return minuteTotal;
     }
 
-    public void setMinuteTotal(float minuteTotal) {
+    public void setMinuteTotal(int minuteTotal) {
         this.minuteTotal = minuteTotal;
     }
 
-    public float getMinuteRemain() {
+    public int getMinuteRemain() {
         return minuteRemain;
     }
 
-    public void setMinuteRemain(float minuteRemain) {
+    public void setMinuteRemain(int minuteRemain) {
         this.minuteRemain = minuteRemain;
     }
 
-    public float getHourRemain() {
+    public int getHourRemain() {
         return hourRemain;
     }
 
-    public void setHourRemain(float hourRemain) {
+    public void setHourRemain(int hourRemain) {
         this.hourRemain = hourRemain;
     }
 
-    public float getSecondRemain() {
+    public int getSecondRemain() {
         return secondRemain;
     }
 
-    public void setSecondRemain(float secondRemain) {
+    public void setSecondRemain(int secondRemain) {
         this.secondRemain = secondRemain;
     }
 

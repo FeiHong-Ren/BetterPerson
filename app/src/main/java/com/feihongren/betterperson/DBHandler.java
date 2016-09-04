@@ -49,11 +49,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 TASK_TABLE_NAME + "(" +
                 TASK_COLUMN_ID + " INTEGER PRIMARY KEY,"+
                 TASK_COLUMN_TITLE + " TEXT UNIQUE,"+
-                TASK_COLUMN_HOUR_TOTAL + " REAL," +
-                TASK_COLUMN_MINUTE_TOTAL + " REAL,"+
-                TASK_COLUMN_HOUR_REMAIN + " REAL," +
-                TASK_COLUMN_MINUTE_REMAIN + " REAL," +
-                TASK_COLUMN_SECOND_REMAIN + " REAL," +
+                TASK_COLUMN_HOUR_TOTAL + " INTEGER," +
+                TASK_COLUMN_MINUTE_TOTAL + " INTEGER,"+
+                TASK_COLUMN_HOUR_REMAIN + " INTEGER," +
+                TASK_COLUMN_MINUTE_REMAIN + " INTEGER," +
+                TASK_COLUMN_SECOND_REMAIN + " INTEGER," +
                 TASK_COLUMN_POINT + " INTEGER," +
                 TASK_COLUMN_MONDAY + " INTEGER,"+
                 TASK_COLUMN_TUESDAY + " INTEGER," +
@@ -82,7 +82,7 @@ public class DBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTask(int id, String title, float hour, float minute, int point, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int sunday, String description, int isCompleted){
+    public void addTask(int id, String title, int hour, int minute, int point, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int sunday, String description, int isCompleted){
         SQLiteDatabase SQLDB = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TASK_COLUMN_ID,id);
@@ -122,11 +122,11 @@ public class DBHandler extends SQLiteOpenHelper {
                 do{
                     int id = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_ID));
                     String title = cursor.getString(cursor.getColumnIndex(TASK_COLUMN_TITLE));
-                    Float hourTotal = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_HOUR_TOTAL));
-                    Float minuteTotal = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_MINUTE_TOTAL));
-                    Float hourRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_HOUR_REMAIN));
-                    Float minuteRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_MINUTE_REMAIN));
-                    Float secondRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_SECOND_REMAIN));
+                    int hourTotal = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_HOUR_TOTAL));
+                    int minuteTotal = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MINUTE_TOTAL));
+                    int hourRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_HOUR_REMAIN));
+                    int minuteRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MINUTE_REMAIN));
+                    int secondRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SECOND_REMAIN));
                     int point = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_POINT));
                     int monday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MONDAY));
                     int tuesday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_TUESDAY));
@@ -137,7 +137,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     int sunday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SUNDAY));
                     String description = cursor.getString(cursor.getColumnIndex(TASK_COLUMN_DESCRIPTION));
                     int isCompleted = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_IS_COMPLETED));
-                    taskList.add(new Task(id,title,hourTotal,minuteTotal,hourTotal,minuteRemain,secondRemain,point,monday,tuesday,wednesday,thursday,friday,saturday,sunday,description,isCompleted));
+                    taskList.add(new Task(id,title,hourTotal,minuteTotal,hourRemain,minuteRemain,secondRemain,point,monday,tuesday,wednesday,thursday,friday,saturday,sunday,description,isCompleted));
 
                 }while(cursor.moveToNext());
 

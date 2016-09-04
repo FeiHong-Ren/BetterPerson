@@ -20,8 +20,8 @@ import static com.feihongren.betterperson.MainActivity.addTask;
 
 public class AddActiviy extends AppCompatActivity {
     private String title = "";
-    private float hour = 0;
-    private float minute = 0;
+    private int hour = 0;
+    private int minute = 0;
     private int point = 0;
     private int mondayOn = 1;
     private int tuesdayOn = 1;
@@ -75,10 +75,10 @@ public class AddActiviy extends AppCompatActivity {
 
                 DBHandler dbHandler = new DBHandler(context);
 
-                String title = (String) titleEdit.getText().toString();
-                float hour = Float.valueOf(hourEdit.getText().toString());
-                float minute = Float.valueOf(minuteEdit.getText().toString());
-                int point = Integer.parseInt(pointEdit.getText().toString());
+                title = (String) titleEdit.getText().toString();
+                hour = Integer.parseInt(hourEdit.getText().toString());
+                minute = Integer.parseInt(minuteEdit.getText().toString());
+                point = Integer.parseInt(pointEdit.getText().toString());
                 if(mondayToggle.isChecked()){
                     mondayOn = 1;
                 }
@@ -121,7 +121,7 @@ public class AddActiviy extends AppCompatActivity {
                 else{
                     sundayOn = 0;
                 }
-                String description = (String) descriptionEdit.getText().toString();
+                description = (String) descriptionEdit.getText().toString();
 
                 int count = dbHandler.getCount(); //get the count from database
                 //add new task

@@ -14,7 +14,7 @@
         <EditText
             android:layout_width="250dp"
             android:layout_height="50dp"
-            android:id="@+id/add_title"
+            android:id="@+id/add_task_title"
             android:clickable="false"
             android:hint="Title"
             android:layout_alignParentTop="true"
@@ -26,9 +26,9 @@
             android:clickable="false"
             android:hint="Hour"
             android:inputType="number"
-            android:layout_below="@+id/add_title"
-            android:layout_alignLeft="@+id/add_title"
-            android:layout_alignStart="@+id/add_title" />
+            android:layout_below="@+id/add_task_title"
+            android:layout_alignLeft="@+id/add_task_title"
+            android:layout_alignStart="@+id/add_task_title" />
         <EditText
             android:layout_width="100dp"
             android:layout_height="50dp"
@@ -36,7 +36,7 @@
             android:clickable="false"
             android:hint="Minute"
             android:inputType="number"
-            android:layout_below="@+id/add_title"
+            android:layout_below="@+id/add_task_title"
             android:layout_toRightOf="@+id/add_time_hour"
             android:layout_toEndOf="@+id/add_time_hour" />
 

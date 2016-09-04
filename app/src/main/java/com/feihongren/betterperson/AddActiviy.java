@@ -60,8 +60,8 @@ public class AddActiviy extends AppCompatActivity {
         Button complete_button = (Button) findViewById(R.id.add_complete_button);
         complete_button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                EditText titleEdit = (EditText) findViewById(R.id.add_title);
-                EditText hourEdit = (EditText) findViewById(R.id.add_time_hour);
+                EditText titleEdit = (EditText) findViewById(R.id.add_task_title);
+                EditText hourEdit =  (EditText) findViewById(R.id.add_time_hour);
                 EditText minuteEdit = (EditText) findViewById(R.id.add_time_minute);
                 EditText pointEdit = (EditText) findViewById(R.id.add_point);
                 ToggleButton mondayToggle = (ToggleButton) findViewById(R.id.add_monday_button);
@@ -125,7 +125,7 @@ public class AddActiviy extends AppCompatActivity {
 
                 int count = dbHandler.getCount(); //get the count from database
                 //add new task
-                newTask = new Task(count,title, hour, minute, hour, minute, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
+                newTask = new Task(count,title, hour, minute, hour, minute,0, point, mondayOn, tuesdayOn, wednesdayOn,thursdayOn, fridayOn, saturdayOn, sundayOn,description, 0);
                 dbHandler.addTask(count,newTask.getTitle(), newTask.getHourTotal(), newTask.getMinuteTotal(), newTask.getPoint(), newTask.getMondayOn(),newTask.getTuesdayOn(), newTask.getWednesdayOn(), newTask.getThursdayOn(), newTask.getFridayOn(), newTask.getSaturdayOn(), newTask.getSundayOn(), newTask.getDescription(),newTask.getIsCompleted());
 
                 count++;

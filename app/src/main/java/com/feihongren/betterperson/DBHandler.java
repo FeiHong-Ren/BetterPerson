@@ -22,6 +22,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TASK_COLUMN_MINUTE_TOTAL = "minute_total";
     private static final String TASK_COLUMN_HOUR_REMAIN = "hour_remain";
     private static final String TASK_COLUMN_MINUTE_REMAIN = "minute_remain";
+    private static final String TASK_COLUMN_SECOND_REMAIN = "second_remain";
     private static final String TASK_COLUMN_POINT = "point";
     private static final String TASK_COLUMN_MONDAY = "monday";
     private static final String TASK_COLUMN_TUESDAY = "tuesday";
@@ -52,6 +53,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 TASK_COLUMN_MINUTE_TOTAL + " REAL,"+
                 TASK_COLUMN_HOUR_REMAIN + " REAL," +
                 TASK_COLUMN_MINUTE_REMAIN + " REAL," +
+                TASK_COLUMN_SECOND_REMAIN + " REAL," +
                 TASK_COLUMN_POINT + " INTEGER," +
                 TASK_COLUMN_MONDAY + " INTEGER,"+
                 TASK_COLUMN_TUESDAY + " INTEGER," +
@@ -89,6 +91,7 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(TASK_COLUMN_MINUTE_TOTAL,minute);
         contentValues.put(TASK_COLUMN_HOUR_REMAIN,hour);
         contentValues.put(TASK_COLUMN_MINUTE_REMAIN,minute);
+        contentValues.put(TASK_COLUMN_SECOND_REMAIN,0);
         contentValues.put(TASK_COLUMN_POINT,point);
         contentValues.put(TASK_COLUMN_MONDAY,monday);
         contentValues.put(TASK_COLUMN_TUESDAY,tuesday);
@@ -123,6 +126,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     Float minuteTotal = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_MINUTE_TOTAL));
                     Float hourRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_HOUR_REMAIN));
                     Float minuteRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_MINUTE_REMAIN));
+                    Float secondRemain = cursor.getFloat(cursor.getColumnIndex(TASK_COLUMN_SECOND_REMAIN));
                     int point = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_POINT));
                     int monday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MONDAY));
                     int tuesday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_TUESDAY));
@@ -133,7 +137,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     int sunday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SUNDAY));
                     String description = cursor.getString(cursor.getColumnIndex(TASK_COLUMN_DESCRIPTION));
                     int isCompleted = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_IS_COMPLETED));
-                    taskList.add(new Task(id,title,hourTotal,minuteTotal,hourTotal,minuteRemain,point,monday,tuesday,wednesday,thursday,friday,saturday,sunday,description,isCompleted));
+                    taskList.add(new Task(id,title,hourTotal,minuteTotal,hourTotal,minuteRemain,secondRemain,point,monday,tuesday,wednesday,thursday,friday,saturday,sunday,description,isCompleted));
 
                 }while(cursor.moveToNext());
 

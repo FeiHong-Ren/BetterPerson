@@ -229,6 +229,17 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLDB.update(TASK_TABLE_NAME,contentValues, TASK_COLUMN_ID + "="+ task.getID(),null );
 
     }
+
+    public void updateTimeRemain(Task task, long hourRemain, long minuteRemain, long secondRemain){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TASK_COLUMN_HOUR_REMAIN,hourRemain);
+        contentValues.put(TASK_COLUMN_MINUTE_REMAIN, minuteRemain);
+        contentValues.put(TASK_COLUMN_SECOND_REMAIN,secondRemain);
+        SQLDB.update(TASK_TABLE_NAME,contentValues, TASK_COLUMN_ID + "="+ task.getID(),null );
+
+    }
     
 
 }

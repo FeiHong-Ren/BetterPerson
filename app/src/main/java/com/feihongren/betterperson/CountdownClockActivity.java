@@ -30,6 +30,7 @@ public class CountdownClockActivity extends AppCompatActivity {
     private TextView PointTextview;
     private Task currentTask;
     private boolean isPaused;
+    private CountdownClock countdownClock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class CountdownClockActivity extends AppCompatActivity {
         countdownClockTextview.setText(hourMinuteSecondFormat);
 
         long totalMilliTime = TimeUnit.HOURS.toMillis(currentTask.getHourRemain()) +TimeUnit.MINUTES.toMillis(currentTask.getMinuteRemain())+TimeUnit.SECONDS.toMillis(currentTask.getSecondRemain());
-        final CountdownClock countdownClock = new CountdownClock(totalMilliTime, 1000);
+        countdownClock = new CountdownClock(totalMilliTime, 1000);
 
         isPaused = true;
 
@@ -97,6 +98,7 @@ public class CountdownClockActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.countdown_clock_cancel_button) {
+            countdownClock.cancel();
             currentActivity.finish();
             return true;
         }
@@ -112,11 +114,13 @@ public class CountdownClockActivity extends AppCompatActivity {
         @Override
         public void onTick(long l) {
             long milliSecondLeft = l;
-            String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliSecondLeft),
-                    TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSecondLeft)),
-                    TimeUnit.MILLISECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft)));
-
+            long hourRemain = TimeUnit.MILLISECONDS.toHours(milliSecondLeft);
+            long minuteRemain = TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSecondLeft));
+            long secondRemain = TimeUnit.MILLISECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft));
+            String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", hourRemain,minuteRemain,secondRemain);
             countdownClockTextview.setText(hourMinuteSecondFormat);
+            System.out.println(hourMinuteSecondFormat);
+            dbHandler.updateTimeRemain(currentTask,hourRemain,minuteRemain,secondRemain);
         }
 
         @Override

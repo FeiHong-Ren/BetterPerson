@@ -1,12 +1,17 @@
 package com.feihongren.betterperson;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +21,11 @@ import java.util.concurrent.TimeUnit;
 public class CountdownClockActivity extends AppCompatActivity {
     private CountdownClockActivity currentActivity = this;
     private DBHandler dbHandler;
+    private TextView titleTextview;
+    private TextView countdownClockTextview;
+    private ImageButton PlayPauseButton;
+    private TextView PointTextview;
+    private Task currentTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +36,17 @@ public class CountdownClockActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         dbHandler = new DBHandler(this);
+
+        titleTextview = (TextView) findViewById(R.id.countdown_clock_title);
+        countdownClockTextview = (TextView) findViewById(R.id.countdown_clock_timer);
+        PlayPauseButton = (ImageButton) findViewById(R.id.countdown_clock_play_pause_button);
+        PointTextview = (TextView) findViewById(R.id.countdown_clock_point);
+
+        Bundle extras = getIntent().getExtras();
+        String taskName = extras.getString("EXTRA_TASK_Title");
+        currentTask = dbHandler.getTask(taskName);
+
+        titleTextview.setText(currentTask.getTitle());
 
     }
 
@@ -44,7 +65,7 @@ public class CountdownClockActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.cancel_button) {
+        if (id == R.id.countdown_clock_cancel_button) {
             currentActivity.finish();
             return true;
         }
@@ -63,8 +84,8 @@ public class CountdownClockActivity extends AppCompatActivity {
             String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliSecondLeft),
                     TimeUnit.MICROSECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MICROSECONDS.toHours(milliSecondLeft)),
                     TimeUnit.MICROSECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MICROSECONDS.toMinutes(milliSecondLeft)));
-            TextView countdownTextview = (TextView) findViewById(R.id.countdown_clock_timer);
-            countdownTextview.setText(hourMinuteSecondFormat);
+
+            countdownClockTextview.setText(hourMinuteSecondFormat);
         }
 
         @Override

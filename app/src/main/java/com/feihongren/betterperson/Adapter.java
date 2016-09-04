@@ -73,6 +73,9 @@ public class Adapter extends ArrayAdapter<Task> {
         taskName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent startCountDownClockActivity = new Intent(context, CountdownClockActivity.class);
+                startCountDownClockActivity.putExtra("EXTRA_TASK_Title",task.getTitle());
+                context.startActivity(startCountDownClockActivity);
 
             }
         });

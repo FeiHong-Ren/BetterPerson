@@ -1,5 +1,6 @@
 package com.feihongren.betterperson;
 
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -7,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -26,6 +29,7 @@ public class CountdownClockActivity extends AppCompatActivity {
     private ImageButton PlayPauseButton;
     private TextView PointTextview;
     private Task currentTask;
+    private boolean isPaused;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +50,35 @@ public class CountdownClockActivity extends AppCompatActivity {
         String taskName = extras.getString("EXTRA_TASK_Title");
         currentTask = dbHandler.getTask(taskName);
 
-        titleTextview.setText(currentTask.getTitle());
+        titleTextview.setText(currentTask.getTitle());//set the task title
+        //set the point for the task
+        int point = currentTask.getPoint();
+        String pointString = point + " Points";
+        PointTextview.setText(pointString);
+        //set the clock for the task
+        String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", currentTask.getHourRemain(), currentTask.getMinuteRemain(), currentTask.getSecondRemain());
+        countdownClockTextview.setText(hourMinuteSecondFormat);
 
+        long totalMilliTime = TimeUnit.HOURS.toMillis(currentTask.getHourRemain()) +TimeUnit.MINUTES.toMillis(currentTask.getMinuteRemain())+TimeUnit.SECONDS.toMillis(currentTask.getSecondRemain());
+        final CountdownClock countdownClock = new CountdownClock(totalMilliTime, 1000);
+
+        isPaused = true;
+
+        PlayPauseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isPaused == true) {
+                    countdownClock.start();
+                    PlayPauseButton.setImageResource(R.drawable.clock_pause_image);
+                    isPaused = false;
+                }
+                else{
+                    countdownClock.cancel();
+                    PlayPauseButton.setImageResource(R.drawable.clock_play_image);
+                    isPaused = true;
+                }
+            }
+        });
     }
 
     @Override
@@ -82,8 +113,8 @@ public class CountdownClockActivity extends AppCompatActivity {
         public void onTick(long l) {
             long milliSecondLeft = l;
             String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(milliSecondLeft),
-                    TimeUnit.MICROSECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MICROSECONDS.toHours(milliSecondLeft)),
-                    TimeUnit.MICROSECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MICROSECONDS.toMinutes(milliSecondLeft)));
+                    TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSecondLeft)),
+                    TimeUnit.MILLISECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft)));
 
             countdownClockTextview.setText(hourMinuteSecondFormat);
         }

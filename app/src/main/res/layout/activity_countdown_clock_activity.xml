@@ -16,12 +16,12 @@
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/clock_toolbar"
+            layout="@layout/countdown_clock_toolbar"
             />
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/clock_body"
+            layout="@layout/countdown_clock_body"
             />
 
     </LinearLayout>

@@ -4,11 +4,13 @@ Name: FeiHong Ren
 Date: August 2016
 */
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,11 +29,12 @@ import android.widget.LinearLayout.LayoutParams;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     //Adding variable for the button click event for drawer
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
 
+    Activity mainActivity = this;
     //listview  variable for task
     ListView taskListView;
     static ArrayList<Task> taskArray;
@@ -49,6 +52,32 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,myToolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+
+        //set up the actionlistener when click the navigation drawer item
+        NavigationView drawerNavigationView = (NavigationView) findViewById(R.id.navigation_view);
+        drawerNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.calendar){
+                    Intent startAddActivity = new Intent(mainActivity, AddActiviy.class);
+                    startActivity(startAddActivity);
+
+                    drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                }
+                else if(itemId == R.id.statistic){
+                    Intent startAddActivity = new Intent(mainActivity, AddActiviy.class);
+                    startActivity(startAddActivity);
+
+                    drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                }
+
+
+                return false;
+            }
+        });
+
 
         //set up the main task list
         DBHandler dbHandler = new DBHandler(this);
@@ -80,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.task_activity_bar, menu);
         return true;
     }
+
+    //override the method when main custom toolbar item is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -97,4 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

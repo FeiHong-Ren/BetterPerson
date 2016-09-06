@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity{
 
         //set up the main task list
         DBHandler dbHandler = new DBHandler(this);
-        taskArray = dbHandler.getTaskList();//get the task in the database
+        taskArray = dbHandler.getTodayTaskList();//get the task in the database
         arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
 
         taskListView = (ListView) findViewById(R.id.main_task_list);

@@ -134,7 +134,7 @@
             android:layout_height="50dp"
             android:text="New ToggleButton"
             android:id="@+id/add_sunday_button"
-            android:textOn="Sat"
+            android:textOn="Sun"
             android:textOff="Off"
             android:layout_below="@+id/add_wednesday_button"
             android:layout_toRightOf="@+id/add_saturday_button"

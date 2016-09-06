@@ -22,7 +22,7 @@ public class Task {
     private String description = "";
     private int isCompleted = 0;
 
-    public Task(int id, String title, int hourTotal, int minuteTotal, int hourRemain, int minuteRemain, int secondRemain, int point, int mondayOn, int thursdayOn, int tuesdayOn, int wednesdayOn, int fridayOn, int sundayOn, int saturdayOn, String description, int isCompleted) {
+    public Task(int id, String title, int hourTotal, int minuteTotal, int hourRemain, int minuteRemain, int secondRemain, int point, int mondayOn, int tuesdayOn, int wednesdayOn, int thursdayOn, int fridayOn, int saturdayOn, int sundayOn, String description, int isCompleted) {
         this.id = id;
         this.title = title;
         this.hourTotal = hourTotal;

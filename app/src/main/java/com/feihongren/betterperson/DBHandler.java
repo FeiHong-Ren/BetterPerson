@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by fwr50 on 2016/8/24.
@@ -146,6 +147,76 @@ public class DBHandler extends SQLiteOpenHelper {
         }
 
     }
+
+
+    public ArrayList<Task> getTodayTaskList(){
+
+
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+        if (Calendar.MONDAY == dayOfWeek) {
+            return getParticularDayTaskList("monday");
+        }
+        else if (Calendar.TUESDAY == dayOfWeek) {
+            return getParticularDayTaskList("tuesday");
+        }
+        else if (Calendar.WEDNESDAY == dayOfWeek) {
+            return getParticularDayTaskList("wednesday");
+        }
+        else if (Calendar.THURSDAY == dayOfWeek) {
+            return getParticularDayTaskList("thursday");
+        }
+        else if (Calendar.FRIDAY == dayOfWeek) {
+            return getParticularDayTaskList("friday");
+        }
+        else if (Calendar.SATURDAY == dayOfWeek) {
+            return getParticularDayTaskList("saturday");
+        }
+        else {
+            return getParticularDayTaskList("sunday");
+        }
+
+    }
+
+    public ArrayList<Task> getParticularDayTaskList(String day){
+        SQLiteDatabase SQLDB = this.getReadableDatabase();
+        //Check if the task table is empty
+        Cursor checkCursor = SQLDB.rawQuery("SELECT "+ day +" FROM "+ TASK_TABLE_NAME + " WHERE " + day + "=?", new String[]{"1"});
+        if(checkCursor.getCount()==0){
+            return new ArrayList<Task>();
+        }
+        else{
+            Cursor cursor = SQLDB.query(TASK_TABLE_NAME,null,day+"=?",new String[]{"1"},null,null,COUNT_COLUMN_id + " ASC");
+            ArrayList<Task> dayTaskList = new ArrayList<Task>();
+            if(cursor.moveToFirst()){
+                do{
+                    int id = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_ID));
+                    String title = cursor.getString(cursor.getColumnIndex(TASK_COLUMN_TITLE));
+                    int hourTotal = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_HOUR_TOTAL));
+                    int minuteTotal = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MINUTE_TOTAL));
+                    int hourRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_HOUR_REMAIN));
+                    int minuteRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MINUTE_REMAIN));
+                    int secondRemain = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SECOND_REMAIN));
+                    int point = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_POINT));
+                    int monday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_MONDAY));
+                    int tuesday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_TUESDAY));
+                    int wednesday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_WEDNESDAY));
+                    int thursday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_THURSDAY));
+                    int friday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_FRIDAY));
+                    int saturday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SATURDAY));
+                    int sunday = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_SUNDAY));
+                    String description = cursor.getString(cursor.getColumnIndex(TASK_COLUMN_DESCRIPTION));
+                    int isCompleted = cursor.getInt(cursor.getColumnIndex(TASK_COLUMN_IS_COMPLETED));
+                    dayTaskList.add(new Task(id,title,hourTotal,minuteTotal,hourRemain,minuteRemain,secondRemain,point,monday,tuesday,wednesday,thursday,friday,saturday,sunday,description,isCompleted));
+
+                }while(cursor.moveToNext());
+
+            }
+            return dayTaskList;
+        }
+    }
+
 
     public Task getTask(String taskName){
         SQLiteDatabase SQLDB = this.getReadableDatabase();

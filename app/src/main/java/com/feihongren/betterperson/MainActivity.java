@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.calendar){
-                    Intent startAddActivity = new Intent(mainActivity, AddActiviy.class);
-                    startActivity(startAddActivity);
+                    Intent startCalendarActivity = new Intent(mainActivity, CalendarActivity.class);
+                    startActivity(startCalendarActivity);
 
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }

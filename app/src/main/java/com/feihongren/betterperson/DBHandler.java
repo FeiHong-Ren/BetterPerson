@@ -143,7 +143,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLDB.insert(TASK_TABLE_NAME, null, contentValues);
 
         Log.d("Database operations", "One row inserted");
-        SQLDB.close();
+
     }
 
     public void addTodayTask(ArrayList<Task> taskList){
@@ -173,7 +173,7 @@ public class DBHandler extends SQLiteOpenHelper {
             contentValues.clear();
         }
 
-        SQLDB.close();
+
     }
 
     public ArrayList<Task> getTaskList(){
@@ -326,7 +326,6 @@ public class DBHandler extends SQLiteOpenHelper {
         contentValues.put(COUNT_COLUMN_id,0);
         contentValues.put(COUNT_COLUMN_COUNT,0);
         SQLDB.insert(COUNT_TABLE_NAME,null,contentValues);
-        SQLDB.close();
     }
     public Cursor getCursorCount(){
         SQLiteDatabase SQLDB = this.getReadableDatabase();

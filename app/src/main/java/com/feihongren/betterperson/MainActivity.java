@@ -100,16 +100,22 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+        //add today's task into database during end of the day
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.set(Calendar.HOUR_OF_DAY, 23);
+        calendar1.set(Calendar.MINUTE, 59);
+        calendar1.set(Calendar.SECOND, 55);
+        Timer timer1 = new Timer();
+        timer1.schedule(new dayCompleted(), calendar1.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
 
 
-
-        //Set the code to execute at specific time of the day
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 15); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 46);
-        calendar.set(Calendar.SECOND, 0);
-        Timer timer = new Timer();
-        timer.schedule(new dayCompleted(), calendar.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); // 60*60*24*100 = 8640000ms
+        //change the task list's task when it is another day
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(Calendar.HOUR_OF_DAY, 0);
+        calendar2.set(Calendar.MINUTE, 0);
+        calendar2.set(Calendar.SECOND, 0);
+        Timer timer2 = new Timer();
+        timer2.schedule(new newDay(), calendar2.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
 
     }
 
@@ -120,7 +126,29 @@ public class MainActivity extends AppCompatActivity{
             dbHandler.addTodayTask(taskArray);
             System.out.println("Today is completed!!!");
 
-            
+        }
+    }
+
+    private class newDay extends TimerTask
+    {
+        public void run()
+        {
+            taskArray.clear();
+            taskArray = dbHandler.getParticularDayTaskList("wednesday");//get the task in the database
+
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    taskListView = (ListView) findViewById(R.id.main_task_list);
+                    taskListView.setAdapter(arrayAdapter);
+                }
+            });
+
+            System.out.println("New Task List!!!!");
+
         }
     }
 

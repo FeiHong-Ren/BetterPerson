@@ -39,6 +39,23 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String COUNT_COLUMN_id = "id";
     private static final String COUNT_COLUMN_COUNT = "count";
 
+    private static final String HISTORY_TABLE_NAME = "history_info";
+    private static final String HISTORY_COLUMN_ID = "id";
+    private static final String HISTORY_COLUMN_TITLE = "title";
+    private static final String HISTORY_COLUMN_HOUR_TOTAL = "hour_total";
+    private static final String HISTORY_COLUMN_MINUTE_TOTAL = "minute_total";
+    private static final String HISTORY_COLUMN_HOUR_REMAIN = "hour_remain";
+    private static final String HISTORY_COLUMN_MINUTE_REMAIN = "minute_remain";
+    private static final String HISTORY_COLUMN_SECOND_REMAIN = "second_remain";
+    private static final String HISTORY_COLUMN_POINT = "point";
+    private static final String HISTORY_COLUMN_DESCRIPTION = "description";
+    private static final String HISTORY_COLUMN_IS_COMPLETED = "is_completed";
+    private static final String HISTORY_COLUMN_MONTH = "month";
+    private static final String HISTORY_COLUMN_DAY = "day";
+    private static final String HISTORY_COLUMN_YEAR = "year";
+
+
+
     public DBHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         Log.d("Database operations", "Database created");
@@ -71,8 +88,27 @@ public class DBHandler extends SQLiteOpenHelper {
                 COUNT_COLUMN_id + " INTEGER PRIMARY KEY,"+
                 COUNT_COLUMN_COUNT + " INTEGER" + ");";
 
+
+        String CREATE_HISTORY_TABLE = "CREATE TABLE " +
+                HISTORY_TABLE_NAME + "(" +
+                HISTORY_COLUMN_ID + " INTEGER,"+
+                HISTORY_COLUMN_TITLE + " TEXT,"+
+                HISTORY_COLUMN_HOUR_TOTAL + " INTEGER," +
+                HISTORY_COLUMN_MINUTE_TOTAL + " INTEGER,"+
+                HISTORY_COLUMN_HOUR_REMAIN + " INTEGER," +
+                HISTORY_COLUMN_MINUTE_REMAIN + " INTEGER," +
+                HISTORY_COLUMN_SECOND_REMAIN + " INTEGER," +
+                HISTORY_COLUMN_POINT + " INTEGER," +
+                HISTORY_COLUMN_DESCRIPTION + " TEXT," +
+                HISTORY_COLUMN_IS_COMPLETED + " INTEGER," +
+                HISTORY_COLUMN_MONTH + " INTEGER," +
+                HISTORY_COLUMN_DAY + " INTEGER," +
+                HISTORY_COLUMN_YEAR+ " INTEGER"
+                +");";
+
         db.execSQL(CREATE_TASK_TABLE);
         db.execSQL(CREATE_COUNT_TABLE);
+        db.execSQL(CREATE_HISTORY_TABLE);
         Log.d("Database operations", "Table created");
     }
 
@@ -80,6 +116,7 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         db.execSQL("DROP TABLE IF EXISTS " + TASK_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + COUNT_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + HISTORY_TABLE_NAME);
         onCreate(db);
     }
 
@@ -106,6 +143,36 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLDB.insert(TASK_TABLE_NAME, null, contentValues);
 
         Log.d("Database operations", "One row inserted");
+        SQLDB.close();
+    }
+
+    public void addTodayTask(ArrayList<Task> taskList){
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH)+ 1;
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        int year = c.get(Calendar.YEAR);
+
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+
+        for(int i=0;i<taskList.size();i++){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(HISTORY_COLUMN_ID,taskList.get(i).getID());
+            contentValues.put(HISTORY_COLUMN_TITLE,taskList.get(i).getTitle());
+            contentValues.put(HISTORY_COLUMN_HOUR_TOTAL,taskList.get(i).getHourTotal());
+            contentValues.put(HISTORY_COLUMN_MINUTE_TOTAL,taskList.get(i).getMinuteTotal());
+            contentValues.put(HISTORY_COLUMN_HOUR_REMAIN,taskList.get(i).getHourRemain());
+            contentValues.put(HISTORY_COLUMN_MINUTE_REMAIN,taskList.get(i).getMinuteRemain());
+            contentValues.put(HISTORY_COLUMN_SECOND_REMAIN,taskList.get(i).getSecondRemain());
+            contentValues.put(HISTORY_COLUMN_POINT,taskList.get(i).getPoint());
+            contentValues.put(HISTORY_COLUMN_DESCRIPTION,taskList.get(i).getDescription());
+            contentValues.put(HISTORY_COLUMN_IS_COMPLETED,taskList.get(i).getIsCompleted());
+            contentValues.put(HISTORY_COLUMN_MONTH,month);
+            contentValues.put(HISTORY_COLUMN_DAY,day);
+            contentValues.put(HISTORY_COLUMN_YEAR,year);
+            SQLDB.insert(HISTORY_TABLE_NAME, null, contentValues);
+            contentValues.clear();
+        }
+
         SQLDB.close();
     }
 

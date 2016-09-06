@@ -5,6 +5,8 @@ Date: August 2016
 */
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -27,7 +29,15 @@ import android.widget.ListView;
 import android.widget.LinearLayout.LayoutParams;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity{
     //Adding variable for the button click event for drawer
@@ -39,6 +49,7 @@ public class MainActivity extends AppCompatActivity{
     ListView taskListView;
     static ArrayList<Task> taskArray;
     static Adapter arrayAdapter;
+    DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +84,14 @@ public class MainActivity extends AppCompatActivity{
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }
 
-
                 return false;
             }
+
         });
 
 
         //set up the main task list
-        DBHandler dbHandler = new DBHandler(this);
+        dbHandler = new DBHandler(this);
         taskArray = dbHandler.getTodayTaskList();//get the task in the database
         arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
 
@@ -89,6 +100,28 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+
+
+
+        //Set the code to execute at specific time of the day
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 15); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 46);
+        calendar.set(Calendar.SECOND, 0);
+        Timer timer = new Timer();
+        timer.schedule(new dayCompleted(), calendar.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS)); // 60*60*24*100 = 8640000ms
+
+    }
+
+    private class dayCompleted extends TimerTask
+    {
+        public void run()
+        {
+            dbHandler.addTodayTask(taskArray);
+            System.out.println("Today is completed!!!");
+
+            
+        }
     }
 
     public static void addTask(Task newTask){

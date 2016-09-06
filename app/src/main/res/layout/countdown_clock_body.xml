@@ -25,10 +25,10 @@
 
         <ImageButton
             android:id="@+id/countdown_clock_play_pause_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/clock_play_image"
-            android:background="@drawable/greenThemeColor"
+            android:background="@drawable/round_corner"
             android:layout_marginTop="102dp"
             android:layout_below="@+id/countdown_clock_timer"
             android:layout_centerHorizontal="true" />

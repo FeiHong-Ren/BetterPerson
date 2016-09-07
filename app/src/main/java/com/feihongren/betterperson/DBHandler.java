@@ -176,6 +176,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+
+
     public ArrayList<Task> getTaskList(){
         SQLiteDatabase SQLDB = this.getReadableDatabase();
         //Check if the task table is empty

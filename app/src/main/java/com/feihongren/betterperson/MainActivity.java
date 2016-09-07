@@ -99,14 +99,13 @@ public class MainActivity extends AppCompatActivity{
         taskListView.setAdapter(arrayAdapter);
 
 
-
         //add today's task into database during end of the day
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.HOUR_OF_DAY, 23);
         calendar1.set(Calendar.MINUTE, 59);
         calendar1.set(Calendar.SECOND, 55);
         Timer timer1 = new Timer();
-        timer1.schedule(new dayCompleted(), calendar1.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+        timer1.schedule(new dayCompleted(), calendar1.getTime());
 
 
         //change the task list's task when it is another day
@@ -115,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
         calendar2.set(Calendar.MINUTE, 0);
         calendar2.set(Calendar.SECOND, 0);
         Timer timer2 = new Timer();
-        timer2.schedule(new newDay(), calendar2.getTime(), TimeUnit.MILLISECONDS.convert(1, TimeUnit.DAYS));
+        timer2.schedule(new newDay(), calendar2.getTime(), TimeUnit.DAYS.toMillis(1));
 
     }
 
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity{
         public void run()
         {
             taskArray.clear();
-            taskArray = dbHandler.getParticularDayTaskList("wednesday");//get the task in the database
+            taskArray = dbHandler.getTodayTaskList();
 
             runOnUiThread(new Runnable() {
                 @Override

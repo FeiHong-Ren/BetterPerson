@@ -1,11 +1,14 @@
 package com.feihongren.betterperson;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CalendarView;
 
 /**
  * Created by fwr50 on 2016/9/5.
@@ -21,6 +24,13 @@ public class CalendarActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_toolbar);
         setSupportActionBar(myToolbar);
 
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendar_view);
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
+                
+            }
+        });
     }
 
     @Override

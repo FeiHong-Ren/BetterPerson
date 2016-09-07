@@ -2,6 +2,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/current_task"
+            android:icon="@drawable/current_task_image"
+            android:title="Current Task">
+        </item>
+        <item
+            android:id="@+id/all_task"
+            android:icon="@drawable/all_task_image"
+            android:title="All Task">
+        </item>
+        <item
             android:id="@+id/calendar"
             android:icon="@drawable/calendar_image"
             android:title="Calendar">

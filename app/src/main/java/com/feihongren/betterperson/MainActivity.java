@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity{
         calendar2.set(Calendar.MINUTE, 0);
         calendar2.set(Calendar.SECOND, 0);
         Timer timer2 = new Timer();
-        timer2.schedule(new newDay(), calendar2.getTime(), TimeUnit.DAYS.toMillis(1));
+        timer2.schedule(new newDay(), calendar2.getTime());
 
     }
 

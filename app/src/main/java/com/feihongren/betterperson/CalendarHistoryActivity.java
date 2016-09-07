@@ -22,7 +22,7 @@ public class CalendarHistoryActivity extends AppCompatActivity {
     int month;
     int day;
     int year;
-    Adapter calendarHistoryArrayAdapter;
+    CalendarHistoryAdapter calendarHistoryArrayAdapter;
     ListView calendarHistoryTaskListView;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,10 @@ public class CalendarHistoryActivity extends AppCompatActivity {
         calendarHistoryTitle.setText(month + "/" + day + "/" + year);
 
 
-        //calendarHistoryArrayAdapter = new Adapter(this, R.layout.calendar_history_custom_listview, taskArrayList);
+        calendarHistoryArrayAdapter = new CalendarHistoryAdapter(this, R.layout.calendar_history_custom_listview, taskArrayList);
 
-        //calendarHistoryTaskListView = (ListView) findViewById(R.id.calendar_history_listview);
-        //calendarHistoryTaskListView.setAdapter(calendarHistoryArrayAdapter);
+        calendarHistoryTaskListView = (ListView) findViewById(R.id.calendar_history_listview);
+        calendarHistoryTaskListView.setAdapter(calendarHistoryArrayAdapter);
 
     }
     @Override

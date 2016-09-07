@@ -7,12 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by fwr50 on 2016/9/6.
  */
 public class CalendarHistoryActivity extends AppCompatActivity {
     Activity currentActivity = this;
+    DBHandler dbHandler;
+    ArrayList<Task> taskArrayList;
+    int month;
+    int day;
+    int year;
+    Adapter calendarHistoryArrayAdapter;
+    ListView calendarHistoryTaskListView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +32,28 @@ public class CalendarHistoryActivity extends AppCompatActivity {
         //set up the action tool bar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.calendar_history_toolbar);
         setSupportActionBar(myToolbar);
+
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            month = extras.getInt("MONTH_EXTRA");
+            day = extras.getInt("DAY_EXTRA");
+            year = extras.getInt("YEAR_EXTRA");
+        }
+
+
+        dbHandler = new DBHandler(this);
+        taskArrayList = dbHandler.getSelectedDayHistory(month, day, year);
+
+        TextView calendarHistoryTitle = (TextView) findViewById(R.id.calendar_history_title);
+        calendarHistoryTitle.setText(month + "/" + day + "/" + year);
+
+
+        //calendarHistoryArrayAdapter = new Adapter(this, R.layout.calendar_history_custom_listview, taskArrayList);
+
+        //calendarHistoryTaskListView = (ListView) findViewById(R.id.calendar_history_listview);
+        //calendarHistoryTaskListView.setAdapter(calendarHistoryArrayAdapter);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -256,7 +256,7 @@ public class DBHandler extends SQLiteOpenHelper {
             return new ArrayList<Task>();
         }
         else{
-            Cursor cursor = SQLDB.query(TASK_TABLE_NAME,null,day+"=?",new String[]{"1"},null,null,COUNT_COLUMN_id + " ASC");
+            Cursor cursor = SQLDB.query(TASK_TABLE_NAME,null,day+"=?",new String[]{"1"},null,null,TASK_COLUMN_ID + " ASC");
             ArrayList<Task> dayTaskList = new ArrayList<Task>();
             if(cursor.moveToFirst()){
                 do{
@@ -379,6 +379,36 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLDB.update(TASK_TABLE_NAME,contentValues, TASK_COLUMN_ID + "="+ task.getID(),null );
 
     }
-    
+
+    public ArrayList<Task> getSelectedDayHistory(int month, int day, int year){
+        SQLiteDatabase SQLDB = this.getReadableDatabase();
+        //Check if the task table is empty
+        Cursor checkCursor = SQLDB.rawQuery("SELECT * FROM "+ HISTORY_TABLE_NAME + " WHERE month=? AND day=? AND year=?", new String[]{Integer.toString(month),Integer.toString(day),Integer.toString(year)});
+        if(checkCursor.getCount()==0){
+            return new ArrayList<Task>();
+        }
+        else{
+            Cursor cursor = SQLDB.query(HISTORY_TABLE_NAME,null,"month=? AND day=? AND year=?",new String[]{Integer.toString(month),Integer.toString(day),Integer.toString(year)},null,null,HISTORY_COLUMN_ID + " ASC");
+            ArrayList<Task> dayTaskList = new ArrayList<Task>();
+            if(cursor.moveToFirst()){
+                do{
+                    int id = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_ID));
+                    String title = cursor.getString(cursor.getColumnIndex(HISTORY_COLUMN_TITLE));
+                    int hourTotal = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_HOUR_TOTAL));
+                    int minuteTotal = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_MINUTE_TOTAL));
+                    int hourRemain = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_HOUR_REMAIN));
+                    int minuteRemain = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_MINUTE_REMAIN));
+                    int secondRemain = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_SECOND_REMAIN));
+                    int point = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_POINT));
+                    String description = cursor.getString(cursor.getColumnIndex(HISTORY_COLUMN_DESCRIPTION));
+                    int isCompleted = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_IS_COMPLETED));
+                    dayTaskList.add(new Task(id,title,hourTotal,minuteTotal,hourRemain,minuteRemain,secondRemain,point,-1,-1,-1,-1,-1,-1,-1,description,isCompleted));
+
+                }while(cursor.moveToNext());
+
+            }
+            return dayTaskList;
+        }
+    }
 
 }

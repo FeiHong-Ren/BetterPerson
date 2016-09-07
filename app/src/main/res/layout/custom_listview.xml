@@ -31,7 +31,7 @@
             />
 
         <ImageButton
-            android:id="@+id/edit_button"
+            android:id="@+id/edit_image_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/edit_image"
@@ -44,7 +44,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:gravity="center"
-            android:layout_toRightOf="@id/edit_button"
+            android:layout_toRightOf="@id/edit_image_button"
             android:checked="false" />
     </RelativeLayout>
 

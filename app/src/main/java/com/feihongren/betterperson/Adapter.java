@@ -47,6 +47,7 @@ public class Adapter extends ArrayAdapter<Task> {
         }
         System.out.println("the position is " + position);
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
+        ImageButton editImageButton = (ImageButton) convertView.findViewById(R.id.edit_image_button);
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
         final Task task = taskList.get(position);
 
@@ -66,6 +67,15 @@ public class Adapter extends ArrayAdapter<Task> {
                     dbHandler.updateIsCompleted(task,0);
                     taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
+            }
+        });
+
+        editImageButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent editActivity = new Intent(context, EditActivity.class);
+                editActivity.putExtra("EXTRA_EDIT_TITLE",task.getTitle());
+                context.startActivity(editActivity);
             }
         });
 

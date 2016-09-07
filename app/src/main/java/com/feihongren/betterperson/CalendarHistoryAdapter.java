@@ -49,7 +49,13 @@ public class CalendarHistoryAdapter extends ArrayAdapter<Task> {
         calendarHistoryTotalTime.setText(totalTimeString);
         String ReTimeString = "Remain:"+currentTask.getHourRemain() + ":" + currentTask.getMinuteRemain() + ":" + currentTask.getSecondRemain();
         calendarHistoryCompletedTime.setText(ReTimeString);
-        calendarHistoryPoint.setText(Integer.toString(currentTask.getPoint()));
+
+        if(currentTask.getIsCompleted()==1){
+            calendarHistoryPoint.setText(Integer.toString(currentTask.getPoint()));
+        }
+        else{
+            calendarHistoryPoint.setText("-" + Integer.toString(currentTask.getPoint()));
+        }
 
         return convertView;
     }

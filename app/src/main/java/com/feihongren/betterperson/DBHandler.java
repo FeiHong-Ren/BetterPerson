@@ -146,6 +146,31 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+    public void updateTask(int id, int hourTotal, int minuteTotal,int hourRemain, int minuteRemain,int secondRemain, int point, int monday, int tuesday, int wednesday, int thursday, int friday, int saturday, int sunday, String description, int isCompleted){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(TASK_COLUMN_HOUR_TOTAL,hourTotal);
+        contentValues.put(TASK_COLUMN_MINUTE_TOTAL,minuteTotal);
+        contentValues.put(TASK_COLUMN_HOUR_REMAIN,hourRemain);
+        contentValues.put(TASK_COLUMN_MINUTE_REMAIN,minuteRemain);
+        contentValues.put(TASK_COLUMN_SECOND_REMAIN,secondRemain);
+        contentValues.put(TASK_COLUMN_POINT,point);
+        contentValues.put(TASK_COLUMN_MONDAY,monday);
+        contentValues.put(TASK_COLUMN_TUESDAY,tuesday);
+        contentValues.put(TASK_COLUMN_WEDNESDAY,wednesday);
+        contentValues.put(TASK_COLUMN_THURSDAY,thursday);
+        contentValues.put(TASK_COLUMN_FRIDAY,friday);
+        contentValues.put(TASK_COLUMN_SATURDAY,saturday);
+        contentValues.put(TASK_COLUMN_SUNDAY,sunday);
+        contentValues.put(TASK_COLUMN_DESCRIPTION,description);
+        contentValues.put(TASK_COLUMN_IS_COMPLETED,isCompleted);
+        SQLDB.update(TASK_TABLE_NAME, contentValues, "id=" + id, null);
+
+
+        Log.d("Database operations", "One row inserted");
+    }
+
     public void addTodayTask(ArrayList<Task> taskList){
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH)+ 1;

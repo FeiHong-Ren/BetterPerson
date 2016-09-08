@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity{
 
     Activity mainActivity = this;
     //listview  variable for task
-    ListView taskListView;
+    static ListView taskListView;
     static ArrayList<Task> taskArray;
     static Adapter arrayAdapter;
-    DBHandler dbHandler;
+    static DBHandler mainActivityDBHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity{
 
 
         //set up the main task list
-        dbHandler = new DBHandler(this);
-        taskArray = dbHandler.getTodayTaskList();//get the task in the database
+        mainActivityDBHandler = new DBHandler(this);
+        taskArray = mainActivityDBHandler.getTodayTaskList();//get the task in the database
         arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
 
         taskListView = (ListView) findViewById(R.id.main_task_list);
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity{
     {
         public void run()
         {
-            dbHandler.addTodayTask(taskArray);
+            mainActivityDBHandler.addTodayTask(taskArray);
             System.out.println("Today is completed!!!");
 
         }
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity{
         public void run()
         {
             taskArray.clear();
-            taskArray = dbHandler.getTodayTaskList();
+            taskArray = mainActivityDBHandler.getTodayTaskList();
 
             runOnUiThread(new Runnable() {
                 @Override
@@ -154,6 +154,12 @@ public class MainActivity extends AppCompatActivity{
     public static void addTask(Task newTask){
         taskArray.add(newTask);
         arrayAdapter.notifyDataSetChanged();
+    }
+
+    public static void removeTask(int position){
+        taskArray.remove(position);
+        arrayAdapter.notifyDataSetChanged();
+
     }
 
     //drawer syn post create
@@ -187,6 +193,25 @@ public class MainActivity extends AppCompatActivity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //execute this code when edit activity finish
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                taskArray.clear();
+                taskArray = mainActivityDBHandler.getTodayTaskList();
+                arrayAdapter.clear();
+                arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                taskListView = (ListView) findViewById(R.id.main_task_list);
+                taskListView.setAdapter(arrayAdapter);
+            }
+        }
     }
 
 

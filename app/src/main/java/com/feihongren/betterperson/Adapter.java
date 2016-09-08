@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by fwr50 on 2016/8/31.
  */
-public class Adapter extends ArrayAdapter<Task> {
+public class Adapter extends ArrayAdapter<Task>{
     private Activity context;
     private int id;
     ArrayList<Task> taskList;
@@ -75,7 +75,8 @@ public class Adapter extends ArrayAdapter<Task> {
             public void onClick(View view) {
                 Intent editActivity = new Intent(context, EditActivity.class);
                 editActivity.putExtra("EXTRA_EDIT_TITLE",task.getTitle());
-                context.startActivity(editActivity);
+                editActivity.putExtra("EXTRA_EDIT_INDEX",position);
+                context.startActivityForResult(editActivity,1);
             }
         });
 
@@ -86,6 +87,7 @@ public class Adapter extends ArrayAdapter<Task> {
                 Intent startCountDownClockActivity = new Intent(context, CountdownClockActivity.class);
                 startCountDownClockActivity.putExtra("EXTRA_TASK_Title",task.getTitle());
                 context.startActivity(startCountDownClockActivity);
+
 
             }
         });

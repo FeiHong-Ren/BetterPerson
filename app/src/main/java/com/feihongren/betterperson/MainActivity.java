@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity{
     static Adapter arrayAdapter;
     static DBHandler mainActivityDBHandler;
 
+    private boolean isInTodaysTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity{
                     taskListView.setAdapter(arrayAdapter);
                     taskTitle.setText("Today's Task");
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                    isInTodaysTask = true;
                 }
                 else if (itemId == R.id.all_task){
                     allTaskArray.clear();
@@ -93,6 +96,7 @@ public class MainActivity extends AppCompatActivity{
                     taskListView.setAdapter(arrayAdapter);
                     taskTitle.setText("All Task");
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                    isInTodaysTask = false;
                 }
                 else if (itemId == R.id.calendar){
                     Intent startCalendarActivity = new Intent(mainActivity, CalendarActivity.class);
@@ -140,6 +144,8 @@ public class MainActivity extends AppCompatActivity{
         calendar2.set(Calendar.SECOND, 0);
         Timer timer2 = new Timer();
         timer2.schedule(new newDay(), calendar2.getTime());
+
+        isInTodaysTask = true;
 
     }
 
@@ -229,10 +235,19 @@ public class MainActivity extends AppCompatActivity{
                 String result=data.getStringExtra("result");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                todaysTaskArray.clear();
-                todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
-                arrayAdapter.clear();
-                arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
+                if (isInTodaysTask){
+                    todaysTaskArray.clear();
+                    todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
+                }
+                else{
+                    allTaskArray.clear();
+                    allTaskArray = mainActivityDBHandler.getAllTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, allTaskArray);
+                }
+
                 taskListView = (ListView) findViewById(R.id.main_task_list);
                 taskListView.setAdapter(arrayAdapter);
             }

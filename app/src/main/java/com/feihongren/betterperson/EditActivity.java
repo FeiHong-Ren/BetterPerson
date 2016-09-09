@@ -191,7 +191,7 @@ public class EditActivity extends AppCompatActivity {
 
                 Intent returnIntent = new Intent();
                 setResult(Activity.RESULT_CANCELED, returnIntent);
-                
+
                 currentActivity.finish();
 
             }

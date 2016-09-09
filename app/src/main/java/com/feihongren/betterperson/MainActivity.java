@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -70,8 +71,29 @@ public class MainActivity extends AppCompatActivity{
         drawerNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
+                TextView taskTitle = (TextView) findViewById(R.id.task_title);
                 int itemId = item.getItemId();
-                if (itemId == R.id.calendar){
+                if (itemId == R.id.current_task){
+                    taskArray.clear();
+                    taskArray = mainActivityDBHandler.getTodayTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    taskListView = (ListView) findViewById(R.id.main_task_list);
+                    taskListView.setAdapter(arrayAdapter);
+                    taskTitle.setText("Current Task");
+                    drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                }
+                else if (itemId == R.id.all_task){
+                    taskArray.clear();
+                    taskArray = mainActivityDBHandler.getAllTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    taskListView = (ListView) findViewById(R.id.main_task_list);
+                    taskListView.setAdapter(arrayAdapter);
+                    taskTitle.setText("All Task");
+                    drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                }
+                else if (itemId == R.id.calendar){
                     Intent startCalendarActivity = new Intent(mainActivity, CalendarActivity.class);
                     startActivity(startCalendarActivity);
 

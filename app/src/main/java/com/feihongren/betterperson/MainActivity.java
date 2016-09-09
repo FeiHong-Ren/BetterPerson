@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity{
     Activity mainActivity = this;
     //listview  variable for task
     static ListView taskListView;
-    static ArrayList<Task> taskArray;
+    static ArrayList<Task> todaysTaskArray;
+    static ArrayList<Task> allTaskArray;
     static Adapter arrayAdapter;
     static DBHandler mainActivityDBHandler;
 
@@ -73,21 +74,21 @@ public class MainActivity extends AppCompatActivity{
             public boolean onNavigationItemSelected(MenuItem item) {
                 TextView taskTitle = (TextView) findViewById(R.id.task_title);
                 int itemId = item.getItemId();
-                if (itemId == R.id.current_task){
-                    taskArray.clear();
-                    taskArray = mainActivityDBHandler.getTodayTaskList();
+                if (itemId == R.id.todays_task){
+                    todaysTaskArray.clear();
+                    todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
                     arrayAdapter.clear();
-                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
                     taskListView = (ListView) findViewById(R.id.main_task_list);
                     taskListView.setAdapter(arrayAdapter);
-                    taskTitle.setText("Current Task");
+                    taskTitle.setText("Today's Task");
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }
                 else if (itemId == R.id.all_task){
-                    taskArray.clear();
-                    taskArray = mainActivityDBHandler.getAllTaskList();
+                    allTaskArray.clear();
+                    allTaskArray = mainActivityDBHandler.getAllTaskList();
                     arrayAdapter.clear();
-                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, allTaskArray);
                     taskListView = (ListView) findViewById(R.id.main_task_list);
                     taskListView.setAdapter(arrayAdapter);
                     taskTitle.setText("All Task");
@@ -114,8 +115,10 @@ public class MainActivity extends AppCompatActivity{
 
         //set up the main task list
         mainActivityDBHandler = new DBHandler(this);
-        taskArray = mainActivityDBHandler.getTodayTaskList();//get the task in the database
-        arrayAdapter = new Adapter(this, R.layout.custom_listview, taskArray);
+        todaysTaskArray = mainActivityDBHandler.getTodayTaskList();//get the task in the database
+        allTaskArray = mainActivityDBHandler.getAllTaskList();
+        arrayAdapter = new Adapter(this, R.layout.custom_listview, todaysTaskArray);
+
 
         taskListView = (ListView) findViewById(R.id.main_task_list);
         taskListView.setAdapter(arrayAdapter);
@@ -144,7 +147,7 @@ public class MainActivity extends AppCompatActivity{
     {
         public void run()
         {
-            mainActivityDBHandler.addTodayTask(taskArray);
+            mainActivityDBHandler.addTodayTask(todaysTaskArray);
             System.out.println("Today is completed!!!");
 
         }
@@ -154,15 +157,15 @@ public class MainActivity extends AppCompatActivity{
     {
         public void run()
         {
-            taskArray.clear();
-            taskArray = mainActivityDBHandler.getTodayTaskList();
+            todaysTaskArray.clear();
+            todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
 
                     arrayAdapter.clear();
-                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
                     taskListView = (ListView) findViewById(R.id.main_task_list);
                     taskListView.setAdapter(arrayAdapter);
                 }
@@ -174,12 +177,12 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public static void addTask(Task newTask){
-        taskArray.add(newTask);
+        todaysTaskArray.add(newTask);
         arrayAdapter.notifyDataSetChanged();
     }
 
     public static void removeTask(int position){
-        taskArray.remove(position);
+        todaysTaskArray.remove(position);
         arrayAdapter.notifyDataSetChanged();
 
     }
@@ -226,10 +229,10 @@ public class MainActivity extends AppCompatActivity{
                 String result=data.getStringExtra("result");
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-                taskArray.clear();
-                taskArray = mainActivityDBHandler.getTodayTaskList();
+                todaysTaskArray.clear();
+                todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
                 arrayAdapter.clear();
-                arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, taskArray);
+                arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
                 taskListView = (ListView) findViewById(R.id.main_task_list);
                 taskListView.setAdapter(arrayAdapter);
             }

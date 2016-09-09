@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/current_task"
+            android:id="@+id/todays_task"
             android:icon="@drawable/current_task_image"
-            android:title="Current Task">
+            android:title="Today's Task">
         </item>
         <item
             android:id="@+id/all_task"

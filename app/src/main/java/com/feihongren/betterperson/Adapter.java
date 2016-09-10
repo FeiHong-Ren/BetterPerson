@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class Adapter extends ArrayAdapter<Task>{
     private Activity context;
     private int id;
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
 
     public Adapter(Activity context, int resource, ArrayList<Task> objects){
@@ -38,6 +38,7 @@ public class Adapter extends ArrayAdapter<Task>{
         this.id = resource;
         this.taskList = objects;
     }
+
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -49,16 +50,29 @@ public class Adapter extends ArrayAdapter<Task>{
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
         ImageButton editImageButton = (ImageButton) convertView.findViewById(R.id.edit_image_button);
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
-        final Task task = taskList.get(position);
+        Task task = taskList.get(position);
 
         final DBHandler dbHandler = new DBHandler(context);
 
         //variable use to change the task background when click checkbox
         final TextView taskStatus = (TextView) convertView.findViewById(R.id.task_status);
-        //Actionlistener when click checkbox
-        taskCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+
+
+        taskName.setText(task.getTitle());
+
+        if(task.getIsCompleted() == 1) {
+            taskCheckBox.setChecked(true);
+            taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
+        }
+        else {
+            taskCheckBox.setChecked(false);
+            taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
+        }
+
+        taskCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+            public void onClick(View view) {
+                Task task = taskList.get(position);
                 if(taskCheckBox.isChecked()) {
                     dbHandler.updateIsCompleted(task,1);
                     taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
@@ -70,9 +84,26 @@ public class Adapter extends ArrayAdapter<Task>{
             }
         });
 
+        taskCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Task task = taskList.get(position);
+                if(taskCheckBox.isChecked()) {
+                    dbHandler.updateIsCompleted(task,1);
+                    taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
+                }
+                else{
+                    dbHandler.updateIsCompleted(task,0);
+                    taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
+                }
+            }
+        });
+
+
         editImageButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Task task = taskList.get(position);
                 Intent editActivity = new Intent(context, EditActivity.class);
                 editActivity.putExtra("EXTRA_EDIT_TITLE",task.getTitle());
                 editActivity.putExtra("EXTRA_EDIT_INDEX",position);
@@ -84,6 +115,7 @@ public class Adapter extends ArrayAdapter<Task>{
         taskName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Task task = taskList.get(position);
                 Intent startCountDownClockActivity = new Intent(context, CountdownClockActivity.class);
                 startCountDownClockActivity.putExtra("EXTRA_TASK_Title",task.getTitle());
                 context.startActivity(startCountDownClockActivity);
@@ -91,15 +123,6 @@ public class Adapter extends ArrayAdapter<Task>{
 
             }
         });
-
-        taskName.setText(task.getTitle());
-        if(task.getIsCompleted() == 1) {
-            taskCheckBox.setChecked(true);
-        }
-        else {
-            taskCheckBox.setChecked(false);
-        }
-
 
         return convertView;
     }

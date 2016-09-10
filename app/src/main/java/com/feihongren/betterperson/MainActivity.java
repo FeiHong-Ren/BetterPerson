@@ -141,9 +141,9 @@ public class MainActivity extends AppCompatActivity{
 
         //change the task list's task when it is another day
         Calendar calendar2 = Calendar.getInstance();
-        calendar2.set(Calendar.HOUR_OF_DAY, 0);
-        calendar2.set(Calendar.MINUTE, 0);
-        calendar2.set(Calendar.SECOND, 0);
+        calendar2.set(Calendar.HOUR_OF_DAY, 23);
+        calendar2.set(Calendar.MINUTE, 59);
+        calendar2.set(Calendar.SECOND, 59);
         Timer timer2 = new Timer();
         timer2.schedule(new newDay(), calendar2.getTime());
 
@@ -166,9 +166,7 @@ public class MainActivity extends AppCompatActivity{
         public void run()
         {
             //reset all task
-            allTaskArray.clear();
-            allTaskArray = mainActivityDBHandler.getAllTaskList();
-            mainActivityDBHandler.resetAllTask(allTaskArray);
+            mainActivityDBHandler.resetAllTask(mainActivityDBHandler.getAllTaskList());
 
 
             todaysTaskArray.clear();

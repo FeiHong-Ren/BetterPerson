@@ -95,6 +95,8 @@ public class MainActivity extends AppCompatActivity{
                     taskListView = (ListView) findViewById(R.id.main_task_list);
                     taskListView.setAdapter(arrayAdapter);
                     taskTitle.setText("All Task");
+
+
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                     isInTodaysTask = false;
                 }
@@ -163,6 +165,12 @@ public class MainActivity extends AppCompatActivity{
     {
         public void run()
         {
+            //reset all task
+            allTaskArray.clear();
+            allTaskArray = mainActivityDBHandler.getAllTaskList();
+            mainActivityDBHandler.resetAllTask(allTaskArray);
+
+
             todaysTaskArray.clear();
             todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
 

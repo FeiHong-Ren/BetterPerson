@@ -171,6 +171,26 @@ public class DBHandler extends SQLiteOpenHelper {
         Log.d("Database operations", "One row inserted");
     }
 
+
+    public void resetAllTask(ArrayList<Task> allTask){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+
+
+        for(int i=0;i<allTask.size();i++) {
+            ContentValues contentValues = new ContentValues();
+            int id = allTask.get(i).getID();
+            int hourTotal = allTask.get(i).getHourTotal();
+            int minuteTotal = allTask.get(i).getHourTotal();
+
+            contentValues.put(TASK_COLUMN_HOUR_REMAIN, hourTotal);
+            contentValues.put(TASK_COLUMN_MINUTE_REMAIN, minuteTotal);
+            contentValues.put(TASK_COLUMN_SECOND_REMAIN, 0);
+            contentValues.put(TASK_COLUMN_IS_COMPLETED, 0);
+            SQLDB.update(TASK_TABLE_NAME, contentValues, "id=" + id, null);
+        }
+        Log.d("Database operations", "All data reseted");
+    }
+
     public void addTodayTask(ArrayList<Task> taskList){
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH)+ 1;

@@ -6,12 +6,15 @@ Date: August 2016
 
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.NotificationCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -147,6 +150,17 @@ public class MainActivity extends AppCompatActivity{
         Timer timer2 = new Timer();
         timer2.schedule(new newDay(), calendar2.getTime());
 
+
+        //change the task list's task when it is another day
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(Calendar.HOUR_OF_DAY, 23);
+        calendar3.set(Calendar.MINUTE, 59);
+        calendar3.set(Calendar.SECOND, 0);
+        Timer timer3 = new Timer();
+        timer3.schedule(new endOfTheDayNotification(), calendar3.getTime());
+
+
+
         isInTodaysTask = true;
 
     }
@@ -187,6 +201,50 @@ public class MainActivity extends AppCompatActivity{
 
         }
     }
+
+    private class endOfTheDayNotification extends TimerTask
+    {
+        public void run()
+        {
+            NotificationCompat.Builder myBuilder = new NotificationCompat.Builder(mainActivity);
+            myBuilder.setSmallIcon(R.mipmap.ic_launcher);
+            myBuilder.setContentTitle("Better Person");
+
+            ArrayList<Task> todaysTaskList = mainActivityDBHandler.getTodayTaskList();
+            int todaysPoints = 0;
+            for(int i=0;i<todaysTaskList.size();i++){
+                Task currentTask = todaysTaskList.get(i);
+                if(currentTask.getIsCompleted() == 1){
+                    todaysPoints += currentTask.getPoint();
+                }
+                else{
+                    todaysPoints -= currentTask.getPoint();
+                }
+            }
+
+            String askString = "Are you a better person today? ";
+            String pointString;
+            if(todaysPoints<0){
+                pointString = "-"+todaysPoints;
+            }
+            else{
+                pointString = Integer.toString(todaysPoints);
+            }
+
+            myBuilder.setContentText(askString+pointString+ " points");
+
+            Intent myMainIntent = new Intent(mainActivity, MainActivity.class);
+            myMainIntent.setAction(Intent.ACTION_MAIN);
+            myMainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(mainActivity, 0, myMainIntent, 0);
+            myBuilder.setContentIntent(pendingIntent);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0,myBuilder.build());
+
+        }
+    }
+
 
     public static void addTask(Task newTask){
         todaysTaskArray.add(newTask);
@@ -281,6 +339,8 @@ public class MainActivity extends AppCompatActivity{
             }
         }
     }
+
+
 
 
 }

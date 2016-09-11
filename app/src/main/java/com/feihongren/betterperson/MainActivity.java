@@ -10,6 +10,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -209,6 +211,12 @@ public class MainActivity extends AppCompatActivity{
             NotificationCompat.Builder myBuilder = new NotificationCompat.Builder(mainActivity);
             myBuilder.setSmallIcon(R.mipmap.ic_launcher);
             myBuilder.setContentTitle("Better Person");
+            //set the vibration
+            long[] vibratePattern = {250,250,250,250};
+            myBuilder.setVibrate(vibratePattern);
+            //set the sound
+            Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            myBuilder.setSound(alarmSound);
 
             ArrayList<Task> todaysTaskList = mainActivityDBHandler.getTodayTaskList();
             int todaysPoints = 0;

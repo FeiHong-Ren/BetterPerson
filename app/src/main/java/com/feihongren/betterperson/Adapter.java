@@ -84,21 +84,6 @@ public class Adapter extends ArrayAdapter<Task>{
             }
         });
 
-        taskCheckBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Task task = taskList.get(position);
-                if(taskCheckBox.isChecked()) {
-                    dbHandler.updateIsCompleted(task,1);
-                    taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
-                }
-                else{
-                    dbHandler.updateIsCompleted(task,0);
-                    taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                }
-            }
-        });
-
 
         editImageButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -118,13 +103,18 @@ public class Adapter extends ArrayAdapter<Task>{
                 Task task = taskList.get(position);
                 Intent startCountDownClockActivity = new Intent(context, CountdownClockActivity.class);
                 startCountDownClockActivity.putExtra("EXTRA_TASK_Title",task.getTitle());
-                context.startActivity(startCountDownClockActivity);
+                startCountDownClockActivity.putExtra("EXTRA_TASK_POSITION",position);
+                context.startActivityForResult(startCountDownClockActivity,2);
 
 
             }
         });
 
         return convertView;
+    }
+
+    public void setTaskStatus(int position){
+
     }
 
 

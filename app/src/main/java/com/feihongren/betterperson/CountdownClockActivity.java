@@ -1,7 +1,10 @@
 package com.feihongren.betterperson;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.Image;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+import static com.feihongren.betterperson.MainActivity.arrayAdapter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +53,7 @@ public class CountdownClockActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String taskName = extras.getString("EXTRA_TASK_Title");
+        int taskPosition = extras.getInt("EXTRA_TASK_POSITION");
         currentTask = dbHandler.getTask(taskName);
 
         titleTextview.setText(currentTask.getTitle());//set the task title
@@ -125,7 +130,17 @@ public class CountdownClockActivity extends AppCompatActivity {
 
         @Override
         public void onFinish() {
+            final MediaPlayer notifySound = MediaPlayer.create(currentActivity, R.raw.minion_ring_ring);
+            countdownClockTextview.setText("00:00:00");
+            dbHandler.updateTimeRemain(currentTask,0,0,0);
+            PlayPauseButton.setImageResource(R.drawable.clock_play_image);
+            isPaused = true;
+            dbHandler.updateIsCompleted(currentTask,1);
 
+            Intent returnIntent = new Intent();
+            setResult(Activity.RESULT_CANCELED, returnIntent);
+
+            notifySound.start();
         }
     }
 

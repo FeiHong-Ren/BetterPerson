@@ -258,6 +258,28 @@ public class MainActivity extends AppCompatActivity{
                 taskListView.setAdapter(arrayAdapter);
             }
         }
+        else if (requestCode == 2) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                if (isInTodaysTask){
+                    todaysTaskArray.clear();
+                    todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
+                }
+                else{
+                    allTaskArray.clear();
+                    allTaskArray = mainActivityDBHandler.getAllTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, allTaskArray);
+                }
+
+                taskListView = (ListView) findViewById(R.id.main_task_list);
+                taskListView.setAdapter(arrayAdapter);
+            }
+        }
     }
 
 

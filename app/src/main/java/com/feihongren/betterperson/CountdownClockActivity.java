@@ -66,7 +66,7 @@ public class CountdownClockActivity extends AppCompatActivity {
         countdownClockTextview.setText(hourMinuteSecondFormat);
 
         long totalMilliTime = TimeUnit.HOURS.toMillis(currentTask.getHourRemain()) +TimeUnit.MINUTES.toMillis(currentTask.getMinuteRemain())+TimeUnit.SECONDS.toMillis(currentTask.getSecondRemain());
-        countdownClock = new CountdownClock(totalMilliTime, 1000);
+        countdownClock = new CountdownClock(totalMilliTime, 1000,totalMilliTime);
 
         isPaused = true;
 
@@ -80,6 +80,8 @@ public class CountdownClockActivity extends AppCompatActivity {
                 }
                 else{
                     countdownClock.cancel();
+                    long milliSecondLeft = countdownClock.getMilliSecondLeft();
+                    countdownClock = new CountdownClock(milliSecondLeft, 1000,milliSecondLeft);
                     PlayPauseButton.setImageResource(R.drawable.clock_play_image);
                     isPaused = true;
                 }
@@ -112,13 +114,16 @@ public class CountdownClockActivity extends AppCompatActivity {
     }
 
     public class CountdownClock extends CountDownTimer {
-        public CountdownClock(long millisInFuture, long countDownInterval) {
+        private long milliSecondLeft;
+        public CountdownClock(long millisInFuture, long countDownInterval, long milliSecondLeft) {
             super(millisInFuture, countDownInterval);
+            this.milliSecondLeft = milliSecondLeft;
         }
+        public long getMilliSecondLeft(){return milliSecondLeft;}
 
         @Override
         public void onTick(long l) {
-            long milliSecondLeft = l;
+            milliSecondLeft = l;
             long hourRemain = TimeUnit.MILLISECONDS.toHours(milliSecondLeft);
             long minuteRemain = TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(milliSecondLeft));
             long secondRemain = TimeUnit.MILLISECONDS.toSeconds(milliSecondLeft) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(milliSecondLeft));

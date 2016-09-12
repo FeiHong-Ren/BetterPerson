@@ -71,6 +71,7 @@ public class CalendarHistoryActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.calendar_history_cancel_button) {
+            dbHandler.close();
             currentActivity.finish();
             return true;
         }

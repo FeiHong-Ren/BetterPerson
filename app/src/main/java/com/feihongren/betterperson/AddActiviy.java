@@ -19,6 +19,7 @@ import static com.feihongren.betterperson.MainActivity.addTask;
 
 
 public class AddActiviy extends AppCompatActivity {
+    private DBHandler dbHandler;
     private String title = "";
     private int hour = 0;
     private int minute = 0;
@@ -56,6 +57,8 @@ public class AddActiviy extends AppCompatActivity {
         EditText minuteLimit = (EditText) findViewById(R.id.add_time_minute);
         minuteLimit.setFilters(new InputFilter[]{ new InputFilterMinMax(0, 59)});
 
+
+        dbHandler = new DBHandler(context);
         //set the button action listener for complete button
         Button complete_button = (Button) findViewById(R.id.add_complete_button);
         complete_button.setOnClickListener(new View.OnClickListener(){
@@ -73,7 +76,7 @@ public class AddActiviy extends AppCompatActivity {
                 ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.add_sunday_button);
                 EditText descriptionEdit = (EditText) findViewById(R.id.add_description);
 
-                DBHandler dbHandler = new DBHandler(context);
+
 
                 title = (String) titleEdit.getText().toString();
                 hour = Integer.parseInt(hourEdit.getText().toString());
@@ -154,6 +157,7 @@ public class AddActiviy extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.cancel_button) {
+            dbHandler.close();
             currentActivity.finish();
             return true;
         }

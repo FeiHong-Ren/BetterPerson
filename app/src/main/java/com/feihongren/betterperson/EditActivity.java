@@ -243,6 +243,7 @@ public class EditActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.edit_cancel_button) {
+            dbHandler.close();
             currentActivity.finish();
             return true;
         }

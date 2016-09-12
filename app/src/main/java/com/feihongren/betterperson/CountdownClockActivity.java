@@ -106,6 +106,7 @@ public class CountdownClockActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.countdown_clock_cancel_button) {
             countdownClock.cancel();
+            dbHandler.close();
             currentActivity.finish();
             return true;
         }

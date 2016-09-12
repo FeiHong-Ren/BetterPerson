@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity{
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.HOUR_OF_DAY, 23);
         calendar1.set(Calendar.MINUTE, 59);
-        calendar1.set(Calendar.SECOND, 55);
+        calendar1.set(Calendar.SECOND, 0);
         Timer timer1 = new Timer();
         timer1.schedule(new dayCompleted(), calendar1.getTime());
 
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity{
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(Calendar.HOUR_OF_DAY, 23);
         calendar2.set(Calendar.MINUTE, 59);
-        calendar2.set(Calendar.SECOND, 59);
+        calendar2.set(Calendar.SECOND, 0);
         Timer timer2 = new Timer();
         timer2.schedule(new newDay(), calendar2.getTime());
 

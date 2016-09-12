@@ -493,4 +493,12 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
+    public void removeTask(Task task){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+        SQLDB.delete(TASK_TABLE_NAME,TASK_COLUMN_ID+"=?",new String[]{String.valueOf(task.getID())});
+
+    }
+
+
+
 }

@@ -1,8 +1,10 @@
 package com.feihongren.betterperson;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -64,7 +66,7 @@ public class EditActivity extends AppCompatActivity {
         final ToggleButton sundayToggle = (ToggleButton) findViewById(R.id.edit_sunday_button);
         final EditText descriptionEdit = (EditText) findViewById(R.id.edit_description);
         Button completeButton = (Button) findViewById(R.id.edit_complete_button);
-
+        Button removeButton = (Button) findViewById(R.id.edit_remove_button);
 
         //set the task information in the edit activity UI
         editTitle.setText(taskName);
@@ -193,6 +195,33 @@ public class EditActivity extends AppCompatActivity {
                 setResult(Activity.RESULT_CANCELED, returnIntent);
 
                 currentActivity.finish();
+
+            }
+        });
+
+
+        removeButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(currentActivity)
+                        .setTitle("Delete Task")
+                        .setMessage("Are you sure you want to delete this task?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dbHandler.removeTask(currentTask);
+                                Intent returnIntent = new Intent();
+                                setResult(Activity.RESULT_CANCELED, returnIntent);
+                                currentActivity.finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
 
             }
         });

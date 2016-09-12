@@ -146,9 +146,19 @@
             android:layout_height="50dp"
             android:text="Complete"
             android:id="@+id/edit_complete_button"
-            android:layout_below="@id/edit_description"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_alignRight="@+id/edit_tuesday_button"
+            android:layout_alignEnd="@+id/edit_tuesday_button" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Remove"
+            android:id="@+id/edit_remove_button"
+            android:textColor="#c63939"
+            android:layout_below="@+id/edit_description"
+            android:layout_alignRight="@+id/edit_sunday_button"
+            android:layout_alignEnd="@+id/edit_sunday_button" />
 
 
     </RelativeLayout>

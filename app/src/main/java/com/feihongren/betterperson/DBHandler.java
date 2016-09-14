@@ -180,7 +180,7 @@ public class DBHandler extends SQLiteOpenHelper {
             ContentValues contentValues = new ContentValues();
             int id = allTask.get(i).getID();
             int hourTotal = allTask.get(i).getHourTotal();
-            int minuteTotal = allTask.get(i).getHourTotal();
+            int minuteTotal = allTask.get(i).getMinuteTotal();
 
             contentValues.put(TASK_COLUMN_HOUR_REMAIN, hourTotal);
             contentValues.put(TASK_COLUMN_MINUTE_REMAIN, minuteTotal);

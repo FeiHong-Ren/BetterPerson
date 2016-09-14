@@ -135,22 +135,24 @@ public class MainActivity extends AppCompatActivity{
         taskListView.setAdapter(arrayAdapter);
 
 
+
+
         //add today's task into database during end of the day
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.HOUR_OF_DAY, 23);
         calendar1.set(Calendar.MINUTE, 59);
         calendar1.set(Calendar.SECOND, 0);
         Timer timer1 = new Timer();
-        timer1.schedule(new dayCompleted(), calendar1.getTime());
+        timer1.schedule(new dayCompleted(), calendar1.getTime(), 1000 * 60 * 60 * 24);
 
 
         //change the task list's task when it is another day
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(Calendar.HOUR_OF_DAY, 23);
         calendar2.set(Calendar.MINUTE, 59);
-        calendar2.set(Calendar.SECOND, 0);
+        calendar2.set(Calendar.SECOND, 30);
         Timer timer2 = new Timer();
-        timer2.schedule(new newDay(), calendar2.getTime());
+        timer2.schedule(new newDay(), calendar2.getTime(), 1000 * 60 * 60 * 24);
 
 
         //change the task list's task when it is another day
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity{
         calendar3.set(Calendar.MINUTE, 59);
         calendar3.set(Calendar.SECOND, 0);
         Timer timer3 = new Timer();
-        timer3.schedule(new endOfTheDayNotification(), calendar3.getTime());
+        timer3.schedule(new endOfTheDayNotification(), calendar3.getTime(), 1000 * 60 * 60 * 24);
 
 
 
@@ -291,7 +293,7 @@ public class MainActivity extends AppCompatActivity{
         if (id == R.id.add_button) {
             //When click button, start new activity
             Intent startAddActivity = new Intent(this, AddActiviy.class);
-            startActivity(startAddActivity);
+            startActivityForResult(startAddActivity,3);
             return true;
         }
 
@@ -346,6 +348,30 @@ public class MainActivity extends AppCompatActivity{
                 taskListView.setAdapter(arrayAdapter);
             }
         }
+
+        else if (requestCode == 3) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                if (isInTodaysTask){
+                    todaysTaskArray.clear();
+                    todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
+                }
+                else{
+                    allTaskArray.clear();
+                    allTaskArray = mainActivityDBHandler.getAllTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, allTaskArray);
+                }
+
+                taskListView = (ListView) findViewById(R.id.main_task_list);
+                taskListView.setAdapter(arrayAdapter);
+            }
+        }
+
     }
 
 

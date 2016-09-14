@@ -1,6 +1,8 @@
 package com.feihongren.betterperson;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -134,8 +136,9 @@ public class AddActiviy extends AppCompatActivity {
                 count++;
                 dbHandler.updateCount(count); //update the count in the database
 
-                addTask(newTask); //add the new task in the main activity and notify the change in list array
 
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_CANCELED, returnIntent);
 
                 currentActivity.finish();
             }

@@ -330,6 +330,35 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<Task> getTomorrowTaskList(){
+
+        Calendar c = Calendar.getInstance();
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+
+        if (Calendar.MONDAY == dayOfWeek) {
+            return getParticularDayTaskList("tuesday");
+        }
+        else if (Calendar.TUESDAY == dayOfWeek) {
+            return getParticularDayTaskList("wednesday");
+        }
+        else if (Calendar.WEDNESDAY == dayOfWeek) {
+            return getParticularDayTaskList("thursday");
+        }
+        else if (Calendar.THURSDAY == dayOfWeek) {
+            return getParticularDayTaskList("friday");
+        }
+        else if (Calendar.FRIDAY == dayOfWeek) {
+            return getParticularDayTaskList("saturday");
+        }
+        else if (Calendar.SATURDAY == dayOfWeek) {
+            return getParticularDayTaskList("sunday");
+        }
+        else {
+            return getParticularDayTaskList("monday");
+        }
+
+    }
+
     public ArrayList<Task> getParticularDayTaskList(String day){
         SQLiteDatabase SQLDB = this.getReadableDatabase();
         //Check if the task table is empty

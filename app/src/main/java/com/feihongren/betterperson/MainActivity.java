@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -39,6 +40,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -135,8 +137,17 @@ public class MainActivity extends AppCompatActivity{
         taskListView.setAdapter(arrayAdapter);
 
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23); // For 1 PM or 2 PM
+        calendar.set(Calendar.MINUTE, 50);
+        calendar.set(Calendar.SECOND, 0);
+        Intent intent = new Intent(getApplicationContext(), EndOfTheDayActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
+/*
         //add today's task into database during end of the day
         Calendar calendar1 = Calendar.getInstance();
         calendar1.set(Calendar.HOUR_OF_DAY, 23);
@@ -150,7 +161,7 @@ public class MainActivity extends AppCompatActivity{
         Calendar calendar2 = Calendar.getInstance();
         calendar2.set(Calendar.HOUR_OF_DAY, 23);
         calendar2.set(Calendar.MINUTE, 59);
-        calendar2.set(Calendar.SECOND, 30);
+        calendar2.set(Calendar.SECOND, 55);
         Timer timer2 = new Timer();
         timer2.schedule(new newDay(), calendar2.getTime(), 1000 * 60 * 60 * 24);
 
@@ -162,7 +173,7 @@ public class MainActivity extends AppCompatActivity{
         calendar3.set(Calendar.SECOND, 0);
         Timer timer3 = new Timer();
         timer3.schedule(new endOfTheDayNotification(), calendar3.getTime(), 1000 * 60 * 60 * 24);
-
+*/
 
 
         isInTodaysTask = true;
@@ -188,7 +199,7 @@ public class MainActivity extends AppCompatActivity{
 
 
             todaysTaskArray.clear();
-            todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
+            todaysTaskArray = mainActivityDBHandler.getTomorrowTaskList();
 
             runOnUiThread(new Runnable() {
                 @Override
@@ -373,6 +384,12 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
+
+
+
+
+
+
 
 
 

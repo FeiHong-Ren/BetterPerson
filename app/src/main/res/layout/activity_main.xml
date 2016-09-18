@@ -24,14 +24,9 @@
         <ListView
             android:id="@+id/main_task_list"
             android:layout_width="match_parent"
-            android:layout_height="420dp"
-            android:layout_weight="0.94"></ListView>
+            android:layout_height="wrap_content"
+            ></ListView>
 
-        <TextView
-            android:id="@+id/main_point_textview"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            />
     </LinearLayout>
     <!--add the the drawer menu-->
     <android.support.design.widget.NavigationView

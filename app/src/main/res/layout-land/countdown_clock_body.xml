@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/countdown_clock_timer"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignLeft="@+id/countdown_clock_point"
+            android:layout_alignStart="@+id/countdown_clock_point" />
+
+        <ImageButton
+            android:id="@+id/countdown_clock_play_pause_button"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/clock_play_image"
+            android:background="@drawable/round_corner"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/countdown_clock_timer"
+            android:layout_centerHorizontal="true" />
+
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/countdown_clock_point"
+            android:textSize="30dp"
+            android:gravity="center"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/countdown_clock_play_pause_button"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+</LinearLayout>

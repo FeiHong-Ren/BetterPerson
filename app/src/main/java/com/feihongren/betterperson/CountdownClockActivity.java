@@ -2,6 +2,7 @@ package com.feihongren.betterperson;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.Image;
 import android.media.MediaPlayer;

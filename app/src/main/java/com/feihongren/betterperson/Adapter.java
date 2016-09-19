@@ -48,6 +48,7 @@ public class Adapter extends ArrayAdapter<Task>{
         }
         System.out.println("the position is " + position);
         TextView taskName = (TextView) convertView.findViewById(R.id.task_name);
+        TextView taskRemainTime = (TextView) convertView.findViewById(R.id.task_remain_time);
         ImageButton editImageButton = (ImageButton) convertView.findViewById(R.id.edit_image_button);
         final CheckBox taskCheckBox = (CheckBox) convertView.findViewById(R.id.task_checkbox);
         Task task = taskList.get(position);
@@ -59,7 +60,7 @@ public class Adapter extends ArrayAdapter<Task>{
 
 
         taskName.setText(task.getTitle());
-
+        taskRemainTime.setText(task.getHourRemain()+":"+task.getMinuteRemain()+":"+task.getSecondRemain());
         if(task.getIsCompleted() == 1) {
             taskCheckBox.setChecked(true);
             taskStatus.setBackgroundColor(Color.parseColor("#58D68D"));
@@ -98,6 +99,19 @@ public class Adapter extends ArrayAdapter<Task>{
 
         //actionlistener when click task
         taskName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Task task = taskList.get(position);
+                Intent startCountDownClockActivity = new Intent(context, CountdownClockActivity.class);
+                startCountDownClockActivity.putExtra("EXTRA_TASK_Title",task.getTitle());
+                startCountDownClockActivity.putExtra("EXTRA_TASK_POSITION",position);
+                context.startActivityForResult(startCountDownClockActivity,2);
+
+
+            }
+        });
+        //actionlistener when click task
+        taskRemainTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Task task = taskList.get(position);

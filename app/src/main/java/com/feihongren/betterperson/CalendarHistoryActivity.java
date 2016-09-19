@@ -54,6 +54,23 @@ public class CalendarHistoryActivity extends AppCompatActivity {
         calendarHistoryTaskListView = (ListView) findViewById(R.id.calendar_history_listview);
         calendarHistoryTaskListView.setAdapter(calendarHistoryArrayAdapter);
 
+
+        //Init selected day's point
+        TextView selectedDaysPoint = (TextView) findViewById(R.id.history_total_point);
+
+        int selectedDaysPoints = 0;
+        for (int i = 0; i < taskArrayList.size(); i++) {
+            Task currentTask = taskArrayList.get(i);
+            if (currentTask.getIsCompleted() == 1) {
+                selectedDaysPoints += currentTask.getPoint();
+            } else {
+                selectedDaysPoints -= currentTask.getPoint();
+            }
+        }
+        String textString = "Point Total: ";
+        String selectedDaysPointString = Integer.toString(selectedDaysPoints);
+        selectedDaysPoint.setText(textString + selectedDaysPointString);
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

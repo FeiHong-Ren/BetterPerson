@@ -20,11 +20,11 @@
         <ListView
             android:id="@+id/calendar_history_listview"
             android:layout_width="match_parent"
-            android:layout_height="460dp"
+            android:layout_height="245dp"
             ></ListView>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="45dp"
             android:id="@+id/history_total_point"
             android:textSize="20sp"
             android:background="#E5E7E9"

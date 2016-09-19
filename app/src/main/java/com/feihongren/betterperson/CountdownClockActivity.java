@@ -71,6 +71,14 @@ public class CountdownClockActivity extends AppCompatActivity {
 
         isPaused = true;
 
+        if (savedInstanceState != null) {
+            isPaused = savedInstanceState.getBoolean("isPaused");
+            if (isPaused == false){
+                countdownClock.start();
+                PlayPauseButton.setImageResource(R.drawable.clock_pause_image);
+            }
+        }
+
         PlayPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +97,7 @@ public class CountdownClockActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,6 +122,19 @@ public class CountdownClockActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countdownClock.cancel();
+        dbHandler.close();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("isPaused", isPaused);
+        super.onSaveInstanceState(outState);
     }
 
     public class CountdownClock extends CountDownTimer {

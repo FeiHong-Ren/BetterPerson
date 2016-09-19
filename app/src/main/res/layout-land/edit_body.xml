@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_scrollview"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
+
+
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_time_hour"
+            android:clickable="false"
+            android:hint="Hour"
+            android:inputType="number"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="175dp"/>
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_time_minute"
+            android:clickable="false"
+            android:hint="Minute"
+            android:inputType="number"
+            android:layout_toRightOf="@id/edit_time_hour"
+            android:layout_toEndOf="@id/edit_time_hour" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_point"
+            android:clickable="false"
+            android:hint="Point"
+            android:inputType="number"
+            android:layout_below="@id/edit_time_hour"
+            android:layout_alignLeft="@id/edit_time_hour"
+            android:layout_alignStart="@id/edit_time_hour" />
+
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:text="Day:"
+            android:id="@+id/edit_day"
+            android:textSize="20dp"
+            android:paddingLeft="5dp"
+            android:paddingTop="5dp"
+            android:layout_below="@id/edit_point"
+            android:layout_centerHorizontal="true" />
+
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_monday_button"
+            android:textOn="Mon"
+            android:textOff="Off"
+            android:layout_below="@id/edit_day"
+            android:layout_alignLeft="@id/edit_day"
+            android:layout_alignStart="@id/edit_day"
+            android:checked="true" />
+
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_tuesday_button"
+            android:textOn="Tue"
+            android:textOff="Off"
+            android:layout_below="@+id/edit_day"
+            android:layout_toRightOf="@+id/edit_monday_button"
+            android:layout_toEndOf="@+id/edit_monday_button"
+            android:checked="true"/>
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_wednesday_button"
+            android:textOn="Wed"
+            android:textOff="Off"
+            android:layout_below="@id/edit_day"
+            android:layout_toRightOf="@id/edit_tuesday_button"
+            android:layout_toEndOf="@id/edit_tuesday_button"
+            android:checked="true"/>
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_thursday_button"
+            android:textOn="Thu"
+            android:textOff="Off"
+            android:layout_below="@id/edit_day"
+            android:layout_toRightOf="@id/edit_wednesday_button"
+            android:layout_toEndOf="@id/edit_wednesday_button"
+            android:checked="true"/>
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_friday_button"
+            android:textOn="Fri"
+            android:textOff="Off"
+            android:layout_below="@+id/edit_monday_button"
+            android:layout_toLeftOf="@+id/edit_time_minute"
+            android:layout_toStartOf="@+id/edit_time_minute"
+            android:checked="true"/>
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_saturday_button"
+            android:textOn="Sat"
+            android:textOff="Off"
+            android:layout_below="@id/edit_tuesday_button"
+            android:layout_toRightOf="@id/edit_friday_button"
+            android:layout_toEndOf="@id/edit_friday_button"
+            android:checked="true"/>
+        <ToggleButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:id="@+id/edit_sunday_button"
+            android:textOn="Sun"
+            android:textOff="Off"
+            android:layout_below="@id/edit_wednesday_button"
+            android:layout_toRightOf="@id/edit_saturday_button"
+            android:layout_toEndOf="@id/edit_saturday_button"
+            android:checked="true"/>
+
+        <EditText
+            android:id="@+id/edit_description"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:minLines="6"
+            android:gravity="top|left"
+            android:maxLines="10"
+            android:layout_height="100dp"
+            android:layout_width="250dp"
+            android:scrollbars="vertical"
+            android:layout_below="@id/edit_friday_button"
+            android:layout_alignLeft="@id/edit_monday_button"
+            android:layout_alignStart="@id/edit_monday_button"
+            android:background="@drawable/input_box_border"
+            android:hint="Description" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Complete"
+            android:id="@+id/edit_complete_button"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/edit_tuesday_button"
+            android:layout_alignEnd="@+id/edit_tuesday_button" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="Remove"
+            android:id="@+id/edit_remove_button"
+            android:textColor="#c63939"
+            android:layout_below="@+id/edit_description"
+            android:layout_alignRight="@+id/edit_sunday_button"
+            android:layout_alignEnd="@+id/edit_sunday_button" />
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -528,6 +528,21 @@ public class DBHandler extends SQLiteOpenHelper {
 
     }
 
+    public int getTodaysPoint(){
+        ArrayList<Task> todaysList= getTodayTaskList();
+        int totalPoint = 0;
+        for(int i=0; i<todaysList.size();i++){
+            Task currentTask = todaysList.get(i);
+            if(currentTask.getIsCompleted() == 1){
+                totalPoint += currentTask.getPoint();
+            }
+            else{
+                totalPoint -= currentTask.getPoint();
+            }
+        }
+        return totalPoint;
+    }
+
 
 
 }

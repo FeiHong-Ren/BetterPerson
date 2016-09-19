@@ -23,6 +23,7 @@ import org.w3c.dom.Text;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import static com.feihongren.betterperson.MainActivity.todaysPoint;
 /**
  * Created by fwr50 on 2016/8/31.
  */
@@ -82,6 +83,10 @@ public class Adapter extends ArrayAdapter<Task>{
                     dbHandler.updateIsCompleted(task,0);
                     taskStatus.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 }
+                int todaysPoints = dbHandler.getTodaysPoint();
+                String textString = "Today's Point: ";
+                String todaysPointString = Integer.toString(todaysPoints);
+                todaysPoint.setText(textString + todaysPointString);
             }
         });
 

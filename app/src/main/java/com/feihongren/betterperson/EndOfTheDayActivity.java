@@ -60,13 +60,7 @@ public class EndOfTheDayActivity extends BroadcastReceiver {
         }
 
         String askString = "Are you a better person today? ";
-        String pointString;
-        if (todaysPoints < 0) {
-            pointString = "-" + todaysPoints;
-        } else {
-            pointString = Integer.toString(todaysPoints);
-        }
-
+        String pointString = Integer.toString(todaysPoints);
         myBuilder.setContentText(askString + pointString + " points");
 
         Intent myMainIntent = new Intent(context, MainActivity.class);

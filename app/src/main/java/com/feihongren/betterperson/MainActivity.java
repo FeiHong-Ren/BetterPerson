@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
     static ArrayList<Task> allTaskArray;
     static Adapter arrayAdapter;
     static DBHandler mainActivityDBHandler;
+    static TextView todaysPoint;
 
     private boolean isInTodaysTask;
 
@@ -135,6 +136,22 @@ public class MainActivity extends AppCompatActivity{
 
         taskListView = (ListView) findViewById(R.id.main_task_list);
         taskListView.setAdapter(arrayAdapter);
+
+        //Init today's point
+        todaysPoint = (TextView) findViewById(R.id.todays_point);
+        int todaysPoints = 0;
+        for (int i = 0; i < todaysTaskArray.size(); i++) {
+            Task currentTask = todaysTaskArray.get(i);
+            if (currentTask.getIsCompleted() == 1) {
+                todaysPoints += currentTask.getPoint();
+            } else {
+                todaysPoints -= currentTask.getPoint();
+            }
+        }
+        String textString = "Today's Point: ";
+        String todaysPointString = Integer.toString(todaysPoints);
+        todaysPoint.setText(textString + todaysPointString);
+
 
 
         Calendar calendar = Calendar.getInstance();
@@ -335,6 +352,11 @@ public class MainActivity extends AppCompatActivity{
 
                 taskListView = (ListView) findViewById(R.id.main_task_list);
                 taskListView.setAdapter(arrayAdapter);
+
+                int todaysPoints = mainActivityDBHandler.getTodaysPoint();
+                String textString = "Today's Point: ";
+                String todaysPointString = Integer.toString(todaysPoints);
+                todaysPoint.setText(textString + todaysPointString);
             }
         }
         else if (requestCode == 2) {
@@ -357,6 +379,11 @@ public class MainActivity extends AppCompatActivity{
 
                 taskListView = (ListView) findViewById(R.id.main_task_list);
                 taskListView.setAdapter(arrayAdapter);
+
+                int todaysPoints = mainActivityDBHandler.getTodaysPoint();
+                String textString = "Today's Point: ";
+                String todaysPointString = Integer.toString(todaysPoints);
+                todaysPoint.setText(textString + todaysPointString);
             }
         }
 
@@ -380,6 +407,11 @@ public class MainActivity extends AppCompatActivity{
 
                 taskListView = (ListView) findViewById(R.id.main_task_list);
                 taskListView.setAdapter(arrayAdapter);
+
+                int todaysPoints = mainActivityDBHandler.getTodaysPoint();
+                String textString = "Today's Point: ";
+                String todaysPointString = Integer.toString(todaysPoints);
+                todaysPoint.setText(textString + todaysPointString);
             }
         }
 

@@ -24,8 +24,19 @@
         <ListView
             android:id="@+id/main_task_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="460dp"
             ></ListView>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:id="@+id/todays_point"
+            android:textSize="20sp"
+            android:background="#E5E7E9"
+            android:gravity="center"
+            android:layout_below="@+id/main_task_list"
+            android:layout_centerHorizontal="true" />
 
     </LinearLayout>
     <!--add the the drawer menu-->

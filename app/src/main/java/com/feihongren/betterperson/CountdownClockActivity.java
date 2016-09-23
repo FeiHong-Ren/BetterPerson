@@ -138,10 +138,12 @@ public class CountdownClockActivity extends AppCompatActivity {
     }
 
     public class CountdownClock extends CountDownTimer {
+        private DBHandler countDownDBHandler;
         private long milliSecondLeft;
         public CountdownClock(long millisInFuture, long countDownInterval, long milliSecondLeft) {
             super(millisInFuture, countDownInterval);
             this.milliSecondLeft = milliSecondLeft;
+            countDownDBHandler = new DBHandler(currentActivity);
         }
         public long getMilliSecondLeft(){return milliSecondLeft;}
 
@@ -154,17 +156,17 @@ public class CountdownClockActivity extends AppCompatActivity {
             String hourMinuteSecondFormat = String.format("%02d:%02d:%02d", hourRemain,minuteRemain,secondRemain);
             countdownClockTextview.setText(hourMinuteSecondFormat);
             System.out.println(hourMinuteSecondFormat);
-            dbHandler.updateTimeRemain(currentTask,hourRemain,minuteRemain,secondRemain);
+            countDownDBHandler.updateTimeRemain(currentTask,hourRemain,minuteRemain,secondRemain);
         }
 
         @Override
         public void onFinish() {
             final MediaPlayer notifySound = MediaPlayer.create(currentActivity, R.raw.minion_ring_ring);
             countdownClockTextview.setText("00:00:00");
-            dbHandler.updateTimeRemain(currentTask,0,0,0);
+            countDownDBHandler.updateTimeRemain(currentTask,0,0,0);
             PlayPauseButton.setImageResource(R.drawable.clock_play_image);
             isPaused = true;
-            dbHandler.updateIsCompleted(currentTask,1);
+            countDownDBHandler.updateIsCompleted(currentTask,1);
 
             Intent returnIntent = new Intent();
             setResult(Activity.RESULT_CANCELED, returnIntent);

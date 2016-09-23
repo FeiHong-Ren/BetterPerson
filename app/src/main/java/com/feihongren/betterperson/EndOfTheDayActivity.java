@@ -14,7 +14,6 @@ import android.support.v7.app.NotificationCompat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static com.feihongren.betterperson.MainActivity.mainActivityDBHandler;
 import static com.feihongren.betterperson.MainActivity.arrayAdapter;
 import static com.feihongren.betterperson.MainActivity.todaysTaskArray;
 
@@ -22,19 +21,14 @@ import static com.feihongren.betterperson.MainActivity.todaysTaskArray;
  * Created by fwr50 on 2016/9/18.
  */
 public class EndOfTheDayActivity extends BroadcastReceiver {
-
+    private DBHandler dbHandler;
     @Override
     public void onReceive(Context context, Intent intent) {
         //Add today's task to database
-        ArrayList<Task> todaysTask = mainActivityDBHandler.getTodayTaskList();
-        mainActivityDBHandler.addTodayTask(todaysTask);
+        dbHandler = new DBHandler(context);
+        ArrayList<Task> todaysTask = dbHandler.getTodayTaskList();
+        dbHandler.addTodayTask(todaysTask);
         System.out.println("today is completed");
-
-        //update the listview to tomorrow's task
-        mainActivityDBHandler.resetAllTask(mainActivityDBHandler.getAllTaskList());
-        todaysTaskArray.clear();
-        todaysTaskArray.addAll(mainActivityDBHandler.getTomorrowTaskList()) ;
-        arrayAdapter.notifyDataSetChanged();
 
 
         //Ask the user if they become a better person
@@ -48,7 +42,7 @@ public class EndOfTheDayActivity extends BroadcastReceiver {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         myBuilder.setSound(alarmSound);
 
-        ArrayList<Task> todaysTaskList = mainActivityDBHandler.getTodayTaskList();
+        ArrayList<Task> todaysTaskList = dbHandler.getTodayTaskList();
         int todaysPoints = 0;
         for (int i = 0; i < todaysTaskList.size(); i++) {
             Task currentTask = todaysTaskList.get(i);
@@ -72,6 +66,13 @@ public class EndOfTheDayActivity extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(0, myBuilder.build());
 
+
+
+        //update the listview to tomorrow's task
+        dbHandler.resetAllTask(dbHandler.getAllTaskList());
+        todaysTaskArray.clear();
+        todaysTaskArray.addAll(dbHandler.getTomorrowTaskList()) ;
+        arrayAdapter.notifyDataSetChanged();
 
 
     }

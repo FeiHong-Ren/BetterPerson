@@ -32,7 +32,7 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="180dp"
+            android:layout_marginLeft="210dp"
             android:id="@+id/statistic_xAxis"
             android:layout_below="@id/statistic_graph_view"
             android:layout_alignLeft="@id/statistic_graph_view"
@@ -58,7 +58,7 @@
     <TextView
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="310dp"
         android:id="@+id/statistic_yAxis"
         android:layout_toLeftOf="@id/statistic_graph_view"
         android:text="Points"

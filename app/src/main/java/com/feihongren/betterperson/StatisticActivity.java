@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -24,7 +26,12 @@ public class StatisticActivity extends AppCompatActivity {
     private Activity currentActivity = this;
     private DBHandler dbHandler;
     private LineGraphSeries<DataPoint> series;
-
+    private Spinner yearSpinner;
+    private Spinner monthSpinner;
+    private ArrayAdapter<String> yearAdpater;
+    private ArrayAdapter<String> monthAdpater;
+    private ArrayList<String> yearList;
+    private ArrayList<String> monthList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +43,49 @@ public class StatisticActivity extends AppCompatActivity {
 
         dbHandler = new DBHandler(this);
 
-        GraphView graphView = (GraphView) findViewById(R.id.statistic_graph_view);
-
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH)+ 1;
         int year = c.get(Calendar.YEAR);
-
         //Calculate the how many days in the month
         Calendar mycal = new GregorianCalendar(year, month-1, 1);
         int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        ArrayList<Integer> monthPointArray= dbHandler.getSelectedMonthPoint(month,year);
+        yearSpinner = (Spinner) findViewById(R.id.statistic_year_spinner);
+        monthSpinner = (Spinner) findViewById(R.id.statistic_month_spinner);
+        yearList = new ArrayList<>();
+        monthList = new ArrayList<>();
+        for (int i = 2012; i <= year; i++) {
+            yearList.add(Integer.toString(i));
+        }
 
+        monthList.add("Jan");
+        monthList.add("Feb");
+        monthList.add("Mar");
+        monthList.add("Apr");
+        monthList.add("May");
+        monthList.add("Jun");
+        monthList.add("Jul");
+        monthList.add("Aug");
+        monthList.add("Sep");
+        monthList.add("Oct");
+        monthList.add("Nov");
+        monthList.add("Dec");
+
+        yearAdpater = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,yearList);
+        monthAdpater = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,monthList);
+        yearSpinner.setAdapter(yearAdpater);
+        monthSpinner.setAdapter(monthAdpater);
+        yearSpinner.setSelection(year-2012);
+        monthSpinner.setSelection(month-1);
+
+        //Init the data for current month
+        GraphView graphView = (GraphView) findViewById(R.id.statistic_graph_view);
+        ArrayList<Integer> monthPointArray= dbHandler.getSelectedMonthPoint(month,year);
         series = new LineGraphSeries<>();
         for(int i=1;i<=daysInMonth;i++){
             series.appendData(new DataPoint(i,monthPointArray.get(i-1)),true,31);
         }
-
-
         graphView.addSeries(series);
-
         graphView.getViewport().setMinX(0);
         graphView.getViewport().setMaxX(31);
         graphView.getViewport().setXAxisBoundsManual(true);

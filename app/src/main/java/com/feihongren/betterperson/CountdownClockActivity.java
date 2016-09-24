@@ -1,6 +1,7 @@
 package com.feihongren.betterperson;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -137,7 +138,7 @@ public class CountdownClockActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
-    public class CountdownClock extends CountDownTimer {
+    public class CountdownClock extends CountDownTimer{
         private DBHandler countDownDBHandler;
         private long milliSecondLeft;
         public CountdownClock(long millisInFuture, long countDownInterval, long milliSecondLeft) {

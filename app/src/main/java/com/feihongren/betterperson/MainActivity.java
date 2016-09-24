@@ -115,8 +115,8 @@ public class MainActivity extends AppCompatActivity{
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }
                 else if(itemId == R.id.statistic){
-                    Intent startAddActivity = new Intent(mainActivity, AddActiviy.class);
-                    startActivity(startAddActivity);
+                    Intent startStatisticActivity = new Intent(mainActivity, StatisticActivity.class);
+                    startActivity(startStatisticActivity);
 
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }

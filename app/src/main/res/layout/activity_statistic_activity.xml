@@ -19,11 +19,34 @@
             android:layout_height="wrap_content"
             layout="@layout/statistic_toolbar"
             />
+
         <com.jjoe64.graphview.GraphView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/statistic_graph_view"/>
+            android:layout_width="300dp"
+            android:layout_marginLeft="60dp"
+            android:layout_height="451dp"
+            android:id="@+id/statistic_graph_view"
+            android:layout_weight="0.17" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="180dp"
+            android:id="@+id/statistic_xAxis"
+            android:layout_below="@id/statistic_graph_view"
+            android:layout_alignLeft="@id/statistic_graph_view"
+            android:layout_alignStart="@id/statistic_graph_view"
+            android:text="Day"
+            android:textSize="20dp"/>
 
     </LinearLayout>
+    <TextView
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="250dp"
+        android:id="@+id/statistic_yAxis"
+        android:layout_toLeftOf="@id/statistic_graph_view"
+        android:text="Points"
+        android:textSize="20dp"/>
+
 
 </RelativeLayout>

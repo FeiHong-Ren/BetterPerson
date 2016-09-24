@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity{
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 23); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 50);
+        calendar.set(Calendar.MINUTE, 5);
         calendar.set(Calendar.SECOND, 0);
         Intent intent = new Intent(getApplicationContext(), EndOfTheDayActivity.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT);

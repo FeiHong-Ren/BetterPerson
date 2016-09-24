@@ -9,6 +9,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by fwr50 on 2016/8/24.
@@ -543,6 +544,54 @@ public class DBHandler extends SQLiteOpenHelper {
         return totalPoint;
     }
 
+    public ArrayList<Integer> getSelectedMonthPoint(int month,int year){
+        SQLiteDatabase SQLDB = this.getReadableDatabase();
+        //Check if the task table is empty
+        Cursor checkCursor = SQLDB.rawQuery("SELECT * FROM "+ HISTORY_TABLE_NAME + " WHERE month=? AND year=?", new String[]{Integer.toString(month),Integer.toString(year)});
+        //Calculate the how many days in the month
+        Calendar mycal = new GregorianCalendar(year, month-1, 1);
+        int daysInMonth = mycal.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+        if(checkCursor.getCount()==0){
+            ArrayList<Integer> emptyResult=new ArrayList<Integer>();
+            for(int i=0;i<daysInMonth;i++){
+                emptyResult.add(0);
+            }
+            return emptyResult;
+        }
+        else{
+
+
+            ArrayList<Integer> dayTaskList = new ArrayList<Integer>();
+
+
+            for(int i=1;i<=daysInMonth;i++) {
+                Cursor cursor = SQLDB.query(HISTORY_TABLE_NAME,null,"month=? AND day=? AND year=?",new String[]{Integer.toString(month),Integer.toString(i),Integer.toString(year)},null,null,HISTORY_COLUMN_ID + " ASC");
+                if (cursor.moveToFirst()) {
+                    int todaysTotalPoint = 0;
+                    do {
+
+                        int point = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_POINT));
+                        int isCompleted = cursor.getInt(cursor.getColumnIndex(HISTORY_COLUMN_IS_COMPLETED));
+                        if(isCompleted == 1){
+                            todaysTotalPoint += point;
+                        }
+                        else{
+                            todaysTotalPoint -= point;
+                        }
+
+                    } while (cursor.moveToNext());
+
+                    dayTaskList.add(todaysTotalPoint);
+                }
+                else{
+                    dayTaskList.add(0);
+                }
+
+
+            }
+            return dayTaskList;
+        }
+    }
 
 }

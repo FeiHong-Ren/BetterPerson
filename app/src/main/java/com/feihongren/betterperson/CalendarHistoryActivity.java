@@ -63,9 +63,12 @@ public class CalendarHistoryActivity extends AppCompatActivity {
             Task currentTask = taskArrayList.get(i);
             if (currentTask.getIsCompleted() == 1) {
                 selectedDaysPoints += currentTask.getPoint();
-            } else {
+            }
+            /*
+            else {
                 selectedDaysPoints -= currentTask.getPoint();
             }
+            */
         }
         String textString = "Point Total: ";
         String selectedDaysPointString = Integer.toString(selectedDaysPoints);

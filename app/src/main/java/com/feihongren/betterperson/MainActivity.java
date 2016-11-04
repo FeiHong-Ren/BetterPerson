@@ -152,9 +152,12 @@ public class MainActivity extends AppCompatActivity{
             Task currentTask = todaysTaskArray.get(i);
             if (currentTask.getIsCompleted() == 1) {
                 todaysPoints += currentTask.getPoint();
-            } else {
+            }
+            /*
+            else {
                 todaysPoints -= currentTask.getPoint();
             }
+            */
         }
         String textString = "Today's Point: ";
         String todaysPointString = Integer.toString(todaysPoints);
@@ -268,9 +271,11 @@ public class MainActivity extends AppCompatActivity{
                 if(currentTask.getIsCompleted() == 1){
                     todaysPoints += currentTask.getPoint();
                 }
+                /*
                 else{
                     todaysPoints -= currentTask.getPoint();
                 }
+                */
             }
 
             String askString = "Are you a better person today? ";

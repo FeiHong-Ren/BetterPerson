@@ -48,9 +48,12 @@ public class EndOfTheDayActivity extends BroadcastReceiver {
             Task currentTask = todaysTaskList.get(i);
             if (currentTask.getIsCompleted() == 1) {
                 todaysPoints += currentTask.getPoint();
-            } else {
+            }
+            /*
+            else {
                 todaysPoints -= currentTask.getPoint();
             }
+            */
         }
 
         String askString = "Are you a better person today? ";

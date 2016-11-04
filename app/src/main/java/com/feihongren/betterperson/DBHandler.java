@@ -537,9 +537,11 @@ public class DBHandler extends SQLiteOpenHelper {
             if(currentTask.getIsCompleted() == 1){
                 totalPoint += currentTask.getPoint();
             }
+            /*
             else{
                 totalPoint -= currentTask.getPoint();
             }
+            */
         }
         return totalPoint;
     }
@@ -576,10 +578,11 @@ public class DBHandler extends SQLiteOpenHelper {
                         if(isCompleted == 1){
                             todaysTotalPoint += point;
                         }
+                        /*
                         else{
                             todaysTotalPoint -= point;
                         }
-
+                        */
                     } while (cursor.moveToNext());
 
                     dayTaskList.add(todaysTotalPoint);

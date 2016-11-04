@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--custom toolbar layout-->
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setting_toolbar"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2ECC71">
+    <!--title of scene-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Setting"
+        android:textColor="#000000"
+        android:id="@+id/setting_title"
+        android:textSize="22sp"
+        android:textStyle="bold"/>
+
+</android.support.v7.widget.Toolbar>

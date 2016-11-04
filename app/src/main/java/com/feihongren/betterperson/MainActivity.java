@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity{
     static TextView todaysPoint;
 
     private boolean isInTodaysTask;
-
+    private PendingIntent pendingIntent;
+    private AlarmManager alarmManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +122,13 @@ public class MainActivity extends AppCompatActivity{
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }
 
+                else if(itemId == R.id.setting){
+                    Intent startSettingActivity = new Intent(mainActivity, SettingActivity.class);
+                    startActivity(startSettingActivity);
+
+                    drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
+                }
+
                 return false;
             }
 
@@ -153,16 +161,22 @@ public class MainActivity extends AppCompatActivity{
         todaysPoint.setText(textString + todaysPointString);
 
 
+        Calendar currentCalendar = Calendar.getInstance();
+        int currentSecond = currentCalendar.get(Calendar.SECOND);
+        int currentMinute = currentCalendar.get(Calendar.MINUTE);
+        int currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 23); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 5);
-        calendar.set(Calendar.SECOND, 0);
-        Intent intent = new Intent(getApplicationContext(), EndOfTheDayActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
+        if(currentHour<=23 && currentMinute<50) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 50);
+            calendar.set(Calendar.SECOND, 0);
+            Intent intent = new Intent(getApplicationContext(), EndOfTheDayActivity.class);
+            pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        }
 
 /*
         //add today's task into database during end of the day
@@ -194,7 +208,6 @@ public class MainActivity extends AppCompatActivity{
 
 
         isInTodaysTask = true;
-
     }
 
     private class dayCompleted extends TimerTask
@@ -416,14 +429,6 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -28,7 +28,8 @@
         </activity>
         <activity android:name=".StatisticActivity" >
         </activity>
-
+        <activity android:name=".SettingActivity" >
+        </activity>
 
         <receiver android:name=".EndOfTheDayActivity"></receiver>
     </application>

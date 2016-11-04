@@ -21,5 +21,10 @@
             android:icon="@drawable/statistic_image"
             android:title="Statistic">
         </item>
+        <item
+            android:id="@+id/setting"
+            android:icon="@drawable/setting_image"
+            android:title="Setting">
+        </item>
     </group>
 </menu>

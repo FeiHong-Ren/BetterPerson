@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity{
 
                 else if(itemId == R.id.setting){
                     Intent startSettingActivity = new Intent(mainActivity, SettingActivity.class);
-                    startActivity(startSettingActivity);
+                    startActivityForResult(startSettingActivity,4);
 
                     drawerLayout.closeDrawer(Gravity.LEFT);//hide the navigation drawer
                 }
@@ -401,6 +401,34 @@ public class MainActivity extends AppCompatActivity{
         }
 
         else if (requestCode == 3) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                if (isInTodaysTask){
+                    todaysTaskArray.clear();
+                    todaysTaskArray = mainActivityDBHandler.getTodayTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, todaysTaskArray);
+                }
+                else{
+                    allTaskArray.clear();
+                    allTaskArray = mainActivityDBHandler.getAllTaskList();
+                    arrayAdapter.clear();
+                    arrayAdapter = new Adapter(mainActivity, R.layout.custom_listview, allTaskArray);
+                }
+
+                taskListView = (ListView) findViewById(R.id.main_task_list);
+                taskListView.setAdapter(arrayAdapter);
+
+                int todaysPoints = mainActivityDBHandler.getTodaysPoint();
+                String textString = "Today's Point: ";
+                String todaysPointString = Integer.toString(todaysPoints);
+                todaysPoint.setText(textString + todaysPointString);
+            }
+        }
+
+        else if (requestCode == 4) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("result");
             }

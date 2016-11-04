@@ -594,4 +594,10 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
+    public void resetAllHistory(){
+        SQLiteDatabase SQLDB = this.getWritableDatabase();
+        SQLDB.delete(TASK_TABLE_NAME,null,null);
+        SQLDB.delete(HISTORY_TABLE_NAME,null,null);
+        SQLDB.delete(HISTORY_TABLE_NAME,null,null);
+    }
 }

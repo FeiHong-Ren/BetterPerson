@@ -1,11 +1,16 @@
 package com.feihongren.betterperson;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +28,33 @@ public class SettingActivity extends AppCompatActivity{
         Toolbar myToolbar = (Toolbar) findViewById(R.id.setting_toolbar);
         setSupportActionBar(myToolbar);
         dbHandler = new DBHandler(this);
+
+        Button resetHistoryButton = (Button) findViewById(R.id.reset_history_button);
+
+        resetHistoryButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                new AlertDialog.Builder(currentActivity)
+                        .setTitle("Reset All")
+                        .setMessage("Are you sure you want to reset all history?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dbHandler.resetAllHistory();
+                                Intent returnIntent = new Intent();
+                                setResult(Activity.RESULT_CANCELED, returnIntent);
+                                currentActivity.finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+        });
     }
 
     @Override
@@ -30,6 +62,7 @@ public class SettingActivity extends AppCompatActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.setting_activity_bar, menu);
         return true;
+
     }
 
     @Override

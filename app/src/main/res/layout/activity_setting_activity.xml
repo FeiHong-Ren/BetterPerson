@@ -8,5 +8,12 @@
         layout="@layout/setting_toolbar"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset All History"
+        android:id="@+id/reset_history_button"
+        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>
